@@ -1,6 +1,18 @@
-public interface Food {
-    public String name;
-    public double price;
-    public String calories;
+public class Food {
+    private String name;
+    private double price;
+    private String calories;
+    public int numAvailable = 0;
+    
+    public String getName() {
+        return name;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public String getCalories() {
+        return calories;
+    }
+
     
 }
