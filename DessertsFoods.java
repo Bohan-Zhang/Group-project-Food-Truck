@@ -4,7 +4,7 @@ package Food_truck;
 
 
 public class DessertsFoods {
-
+    
     public Food vanillaIceCream = new Food("Vanilla Ice Cream", 3.50, 250, "Soft-served vanilla ice cream.");
     public Food chocolateIceCream = new Food("Chocolate Ice Cream", 3.50, 250, "Soft-served chocolate ice cream.");
     public Food strawberryIceCream = new Food("Strawberry Ice Cream", 3.50, 250, "A scoop of mint chocolate ice cream.");
