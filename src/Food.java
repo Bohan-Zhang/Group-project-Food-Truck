@@ -1,3 +1,5 @@
+package Food_truck;
+
 public class Food {
     private String name;
     private double price;
