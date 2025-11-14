@@ -4,6 +4,7 @@ public class Drink {
     private int calories;
     private String description;
     private int numAvailable;
+
     public Drinks(String n, double p, int c, String d, int a) {
     public Drink redGlass = new Drink("Red Wineglass", 13.50, 133, "A Glass of Merlot", 20);
     public Drink redBottle = new Drink("Red Winebottle", 29.99, 295,"A Full Bottle of Merlot for you to take home", 10);
