@@ -132,7 +132,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         }
     }
 
-    public void optionSetup(JLabel label, JButton button, int xOffset, int yOffset){
+    public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset){
         label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125,50);
         label.setOpaque(true);
         label.setBackground(pastelPink);
@@ -194,7 +194,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         dessertsButton.setVisible(visibility);
     }
 
-    public void update(){
+    public final void update(){
         this.revalidate();
         this.repaint();
     }
