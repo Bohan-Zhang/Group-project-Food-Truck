@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
-package Food_truck;
+//package Food_truck;
+
 
 
 public class DessertsFoods {
-    
+
     public Food vanillaIceCream = new Food("Vanilla Ice Cream", 3.50, 250, "Soft-served vanilla ice cream.");
     public Food chocolateIceCream = new Food("Chocolate Ice Cream", 3.50, 250, "Soft-served chocolate ice cream.");
     public Food strawberryIceCream = new Food("Strawberry Ice Cream", 3.50, 250, "A scoop of mint chocolate ice cream.");
@@ -21,6 +22,11 @@ public class DessertsFoods {
     public void sellDessert(Food dessert) {
         //System.out.println("You have purchased: " + dessert.getName() + " for $" + dessert.getPrice());
         dessert.setNumAvailable(dessert.getNumAvailable() - 1);
+    }
+
+    
+    public String toString(Food dessert) {
+        return ("A " + dessert.getName() + " costs $" + dessert.getPrice() + ". " + dessert.getDescription() + " Calories: " + dessert.getCalories() + ". Available: " + dessert.getNumAvailable());
     }
 
     
