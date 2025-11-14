@@ -1,4 +1,4 @@
-public class Drinks {
+public class Drink {
     private String name;
     private double price;
     private int calories;
