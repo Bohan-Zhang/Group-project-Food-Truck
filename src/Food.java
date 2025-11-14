@@ -5,7 +5,7 @@ public class Food {
     private String description;
     private int numAvailable;
 
-    public Food(String n, double p, String c, String d, int a) {
+    public Food(String n, double p, int c, String d, int a) {
         name = n;
         price = p;
         calories = c;
@@ -19,7 +19,7 @@ public class Food {
     public double getPrice() {
         return price;
     }
-    public String getCalories() {
+    public int getCalories() {
         return calories;
     }
     public String getDescription() {
