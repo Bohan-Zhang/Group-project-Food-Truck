@@ -10,6 +10,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     final double screenWidth = screenSize.getWidth();
     final double screenHeight = screenSize.getHeight();
 
+    //menus
+    Menu entreesMenu;
+
     //Vars
     boolean nameSubmitted = false;
 
@@ -24,6 +27,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     JTextField namer;
     JLabel greetings;
     JButton checkout;
+    JButton back;
 
     //creates menu components
     JLabel entreesLabel;
@@ -102,6 +106,13 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         checkout.setVisible(false);
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
+        back = new JButton("Back");
+        back.setBounds((int) screenWidth/3/2+50, (int) screenHeight/2+275, 75, 25);
+        back.setBackground(pastelPink);
+        back.addActionListener(this);
+        back.setVisible(false);
+        phoneLayer.add(back, JLayeredPane.POPUP_LAYER);
+
         //menu select setup
         //entrees label and button setup
         entreesLabel = new JLabel("Entrees", SwingConstants.CENTER);
@@ -120,16 +131,19 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         dessertsButton = new JButton();
         this.optionSetup(dessertsLabel, dessertsButton, 15, 100);
 
+        EntreesFood entrees = new EntreesFood();
+        entreesMenu = new Menu(entrees.chips, entrees.calamari, entrees.scallops, entrees.macNCheese, entrees.fries, entrees.frys, entrees.chickenNuggets, entrees.shrimp, this);
+
         this.update();
 
         //checks if it is fullscreen or not, centers if it is fullscreen
-        while (true) {
-            if ((this.getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
-                programLayer.setLocation((int) screenWidth/3,0);
-            } else {
-                programLayer.setLocation(0,0);
-            }
-        }
+        // while (true) {
+        //     if ((this.getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+        //         programLayer.setLocation((int) screenWidth/3,0);
+        //     } else {
+        //         programLayer.setLocation(0,0);
+        //     }
+        // }
     }
 
     public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset){
@@ -164,19 +178,24 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == entreesButton){
-            //PUT ENTRÉES CLASS METHOD CALLS HERE
+            mainMenuVisibilities(false);
+            entreesMenu.setMenuVisibility(true);
         }
         else if(e.getSource() == mainsButton){
-            //PUT MAINS CLASS METHOD CALLS HERE
+            this.mainMenuVisibilities(false);
         }
         else if(e.getSource() == drinksButton){
-            //PUT DRINKS CLASS METHOD CALLS HERE
+            this.mainMenuVisibilities(false);
         }
         else if(e.getSource() == dessertsButton){
-            //PUT DESSERTS CLASS METHOD CALLS HERE
+            this.mainMenuVisibilities(false);
         }
         else if(e.getSource() == checkout){
-            //PUT CHECKOUT CODE HERE
+            this.mainMenuVisibilities(false);
+        }
+        else if(e.getSource() == back){
+            this.mainMenuVisibilities(true);
+            entreesMenu.setMenuVisibility(false);
         }
     }
 
@@ -184,6 +203,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         greetings.setVisible(visibility);
         greetings.setText("Greetings and salutations, " + namer.getText() + "!");
         checkout.setVisible(visibility);
+        back.setVisible(!visibility);
         entreesLabel.setVisible(visibility);
         entreesButton.setVisible(visibility);
         mainsLabel.setVisible(visibility);
