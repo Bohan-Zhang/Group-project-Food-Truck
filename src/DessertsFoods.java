@@ -10,6 +10,7 @@ public class DessertsFoods {
     public Food chocolateChipCookie;
     public Food butterCookie;
     public Food applePie;
+    public Food glazedDonut;
     
     // Will display the menu.
     public DessertsFoods() {
@@ -20,6 +21,7 @@ public class DessertsFoods {
         chocolateChipCookie = new Food("Chocolate Chip Cookie", 1.00, 200, "A classic chocolate chip cookie.",5);
         butterCookie = new Food("Butter Cookie", 1.00, 200, "A classic butter cookie.",5);
         applePie = new Food("Baked Apple Pie", 2.00, 250, "A warm turnover handpie filled with spiced apples.",5);
+        glazedDonut = new Food("Glazed Donut", 1.50, 250, "A glazed donut that melts in your mouth.",5);
     }
 
     public void sellDessert(Food dessert) {
