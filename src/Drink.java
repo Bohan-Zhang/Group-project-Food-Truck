@@ -23,26 +23,4 @@ public class Drink {
     pinaColada = new Food("Piña Colada", 3.00, 120, "A sweet, creamy drink made with pineapple and coconut.", 20);
     tequila = new Food("Tequila", 7.50, 330, "A strong, clear spirit made from the blue agave plant in Mexico.", 10);
     }
-
-    public String getName() {
-        return name;
-    }
-    public double getPrice() {
-        return price;
-    }
-    public int getCalories() {
-        return calories;
-    }
-    public String getDescription() {
-        return description;
-    }
-    
-    public int getNumAvailable() {
-        return numAvailable;
-    }
-
-
-    public void setNumAvailable(int num) {
-        numAvailable = num;
-    }
 }
