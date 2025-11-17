@@ -207,6 +207,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             this.mainMenuVisibilities(true);
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
+            drinksMenu.setMenuVisibility(false);
         }
     }
 
