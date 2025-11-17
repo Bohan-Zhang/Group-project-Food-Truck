@@ -12,6 +12,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
     //menus
     Menu entreesMenu;
+    Menu mainsMenu;
+    Menu drinksMenu;
+
 
     //Vars
     boolean nameSubmitted = false;
@@ -134,6 +137,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         EntreesFood entrees = new EntreesFood();
         entreesMenu = new Menu(entrees.chips, entrees.calamari, entrees.scallops, entrees.macNCheese, entrees.fries, entrees.frys, entrees.chickenNuggets, entrees.shrimp, this);
 
+        MainsFood mains = new MainsFood();
+        mainsMenu = new Menu(mains.cheeseburger, mains.hotdog, mains.pasta, mains.grilledCheese, mains.turkeySandwich, mains.tacos, mains.pizza, mains.hamburger, this);
+
         this.update();
 
         //checks if it is fullscreen or not, centers if it is fullscreen
@@ -183,6 +189,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         }
         else if(e.getSource() == mainsButton){
             this.mainMenuVisibilities(false);
+            mainsMenu.setMenuVisibility(true);
         }
         else if(e.getSource() == drinksButton){
             this.mainMenuVisibilities(false);
@@ -196,6 +203,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         else if(e.getSource() == back){
             this.mainMenuVisibilities(true);
             entreesMenu.setMenuVisibility(false);
+            mainsMenu.setMenuVisibility(false);
         }
     }
 
