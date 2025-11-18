@@ -174,7 +174,7 @@ public class Menu implements ActionListener {
             item.addToCart();
             screen.cartCost += item.getPrice();
         }
-        else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() > 0){
+        else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() >= 0){
          item.removeFromCart();     
          screen.cartCost -= item.getPrice();        
         }
