@@ -97,8 +97,13 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             }
         }); 
 
+<<<<<<< HEAD
         taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
         phoneLayer.add(taco);*/
+=======
+        //taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
+        //phoneLayer.add(taco);
+>>>>>>> efe184b98e9630c1035f3c0e14603e5a9adb4806
 
 
         //namer setup
