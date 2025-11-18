@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 import javax.swing.*;
 
 
@@ -13,6 +14,7 @@ public class Menu implements ActionListener {
     Color pastelPink = new Color(255, 200, 240);
 
     Display screen;
+    JLabel pictureBG = new JLabel(new ImageIcon((Objects.requireNonNull(getClass().getResource("img/FoodBG.png")))));
     JLabel picture = new JLabel();
     JLabel cost = new JLabel();
     JLabel calories = new JLabel();
@@ -67,6 +69,9 @@ public class Menu implements ActionListener {
         this.item7 = item7;
         this.item8 = item8;
 
+        pictureBG.setBounds((int) screenWidth/3/2-150, (int) screenHeight/2+250, 100, 100);
+        screen.phoneLayer.add(pictureBG, JLayeredPane.PALETTE_LAYER);
+        pictureBG.setVisible(false);
         createDetail(picture, -150, 250, 100, 100);
         createDetail(description, -150, 200, 300, 50);
         createDetail(cost, -40, 250, 80, 25);
@@ -158,6 +163,7 @@ public class Menu implements ActionListener {
     }
 
     public void setDetails(Food item, int current){
+        pictureBG.setVisible(true);
         picture.setIcon(item.getImage()); //change to food img
         cost.setText("$" + item.getPrice());
         calories.setText(item.getCalories() + " calories");
