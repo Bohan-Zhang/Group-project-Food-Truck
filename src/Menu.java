@@ -170,7 +170,7 @@ public class Menu implements ActionListener {
     }
 
     public void changeCart(Object source, JButton add, JButton subtract, Food item, int current){
-        if(source == add){
+        if(source == add && item.getNumAvailable() > 0){
             item.addToCart();
             screen.cartCost += item.getPrice();
         }
