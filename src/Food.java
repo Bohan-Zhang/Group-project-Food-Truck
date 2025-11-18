@@ -37,6 +37,9 @@ public class Food {
     public int getNumAvailable() {
         return numAvailable;
     }
+    public ImageIcon getImage(){
+        return Image;
+    }
     public int getInCart(){
         return inCart;
     }

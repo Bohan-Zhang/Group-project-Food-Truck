@@ -158,7 +158,7 @@ public class Menu implements ActionListener {
     }
 
     public void setDetails(Food item, int current){
-        picture.setBackground(pastelPink); //change to food img
+        picture.setIcon(item.getImage()); //change to food img
         picture.setOpaque(true); //delete later
         cost.setText("$" + item.getPrice());
         calories.setText(item.getCalories() + " calories");
