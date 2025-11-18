@@ -97,7 +97,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             }
         }); */
 
-        taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
+        //taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
         //phoneLayer.add(taco);
 
 
