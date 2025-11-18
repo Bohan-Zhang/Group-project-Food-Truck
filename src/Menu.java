@@ -169,13 +169,16 @@ public class Menu implements ActionListener {
         screen.update();
     }
 
-    public void changeCart(Object source, JButton add, Food item, int current){
-        if(source == add){
+    public void changeCart(Object source, JButton add, JButton subtract, Food item, int current){
+        if(source == add && screen.money - item.getPrice() >= 0 && item.getNumAvailable() > 0){
             item.addToCart();
+            screen.money -= item.getPrice();
         }
-        else{
-         item.removeFromCart();             
+        else if (source == subtract && item.getInCart() > 0){
+         item.removeFromCart();     
+         screen.money += item.getPrice();        
         }
+        screen.moneyLabel.setText("Cash: $" + screen.money);
         if (currentDetails == current){
             setDetails(item, current);
         }
@@ -187,56 +190,56 @@ public class Menu implements ActionListener {
             setDetails(item1, 1);
         }
         else if(e.getSource() == add1 || e.getSource() == subtract1){
-            changeCart(e.getSource(), add1, item1, 1);
+            changeCart(e.getSource(), add1, subtract1, item1, 1);
         }
 
         else if (e.getSource() == item2Name){
             setDetails(item2, 2);
         }
         else if(e.getSource() == add2 || e.getSource() == subtract2){
-            changeCart(e.getSource(), add2, item2, 2);
+            changeCart(e.getSource(), add2, subtract2, item2, 2);
         }
 
         else if (e.getSource() == item3Name){
             setDetails(item3,3);
         }
         else if(e.getSource() == add3 || e.getSource() == subtract3){
-            changeCart(e.getSource(), add3, item3, 3);
+            changeCart(e.getSource(), add3, subtract3, item3, 3);
         }
     
         else if (e.getSource() == item4Name){
             setDetails(item4,4);
         }
         else if(e.getSource() == add4 || e.getSource() == subtract4){
-            changeCart(e.getSource(), add4, item4, 4);
+            changeCart(e.getSource(), add4, subtract4, item4, 4);
         }
 
         else if (e.getSource() == item5Name){
             setDetails(item5,5);
         }
         else if(e.getSource() == add5 || e.getSource() == subtract5){
-            changeCart(e.getSource(), add5, item5, 5);
+            changeCart(e.getSource(), add5, subtract5, item5, 5);
         }
         
         else if (e.getSource() == item6Name){
             setDetails(item6,6);
         }
         else if(e.getSource() == add6 || e.getSource() == subtract6){
-            changeCart(e.getSource(), add6, item6, 6);
+            changeCart(e.getSource(), add6, subtract6, item6, 6);
         }
        
         else if (e.getSource() == item7Name){
             setDetails(item7,7);
         }
         else if(e.getSource() == add7 || e.getSource() == subtract7){
-            changeCart(e.getSource(), add7, item7, 7);
+            changeCart(e.getSource(), add7, subtract7, item7, 7);
         }
 
         else if (e.getSource() == item8Name){
             setDetails(item8,8);
         }
         else if(e.getSource() == add8 || e.getSource() == subtract8){
-            changeCart(e.getSource(), add8, item8, 8);
+            changeCart(e.getSource(), add8, subtract8, item8, 8);
         }
     }
 }

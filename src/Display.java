@@ -15,9 +15,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     Menu mainsMenu;
     Menu drinksMenu;
 
-
     //Vars
     boolean nameSubmitted = false;
+    double money = 100.00;
 
     //COLOR
     Color pastelPink = new Color(255, 200, 240);
@@ -29,6 +29,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     JLabel restaurantName;
     JTextField namer;
     JLabel greetings;
+    JLabel moneyLabel;
     JButton checkout;
     JButton back;
 
@@ -99,7 +100,13 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         greetings = new JLabel("", SwingConstants.CENTER);
         greetings.setBounds((int)screenWidth/3/2-175, (int)screenHeight/2-150, 350, 25);
         greetings.setVisible(false);
-        phoneLayer.add(greetings);
+        phoneLayer.add(greetings, JLayeredPane.DRAG_LAYER);
+
+        //money setup
+        moneyLabel = new JLabel("Cash: $" + money);
+        moneyLabel.setBounds((int) screenWidth/3/2+60, (int) screenHeight/2-360, 100, 25);
+        moneyLabel.setVisible(false);
+        phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
 
         //checkout button setup
         checkout = new JButton("Come 'n get it!");
@@ -175,6 +182,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && !namer.getText().equals("Who might you be?") && !nameSubmitted){
             namer.setVisible(false);
+            moneyLabel.setVisible(true);
             this.mainMenuVisibilities(true);
             nameSubmitted = true;
         }
