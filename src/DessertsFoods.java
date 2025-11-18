@@ -1,5 +1,5 @@
-
-
+import java.util.Objects;
+import javax.swing.ImageIcon;
 
 public class DessertsFoods {
 
@@ -14,14 +14,14 @@ public class DessertsFoods {
     
     // Will display the menu.
     public DessertsFoods() {
-        vanillaIceCream = new Food("Vanilla Ice Cream", 3.50, 250, "Soft-served vanilla ice cream.",5);
-        chocolateIceCream = new Food("Chocolate Ice Cream", 3.50, 250, "Soft-served chocolate ice cream.",5);
-        strawberryIceCream = new Food("Strawberry Ice Cream", 3.50, 250, "A scoop of mint chocolate ice cream.",5);
-        brownie = new Food("Brownie", 2.75, 250, "Two rich chocolate brownies.",5);
-        chocolateChipCookie = new Food("Chocolate Chip Cookie", 1.00, 200, "A classic chocolate chip cookie.",5);
-        butterCookie = new Food("Butter Cookie", 1.00, 200, "A classic butter cookie.",5);
-        applePie = new Food("Baked Apple Pie", 2.00, 250, "A warm turnover handpie filled with spiced apples.",5);
-        glazedDonut = new Food("Glazed Donut", 1.50, 250, "A glazed donut that melts in your mouth.",5);
+        vanillaIceCream = new Food("Vanilla Ice Cream", 3.50, 250, "Soft-served vanilla ice cream.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        chocolateIceCream = new Food("Chocolate Ice Cream", 3.50, 250, "Soft-served chocolate ice cream.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        strawberryIceCream = new Food("Strawberry Ice Cream", 3.50, 250, "A scoop of mint chocolate ice cream.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        brownie = new Food("Brownie", 2.75, 250, "Two rich chocolate brownies.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        chocolateChipCookie = new Food("Chocolate Chip Cookie", 1.00, 200, "A classic chocolate chip cookie.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        butterCookie = new Food("Butter Cookie", 1.00, 200, "A classic butter cookie.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        applePie = new Food("Baked Apple Pie", 2.00, 250, "A warm turnover handpie filled with spiced apples.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        glazedDonut = new Food("Glazed Donut", 1.50, 250, "A glazed donut that melts in your mouth.",5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
     }
 
     public void sellDessert(Food dessert) {

@@ -1,3 +1,6 @@
+
+import javax.swing.ImageIcon;
+
 public class Food {
     private String name;
     private double price;
@@ -6,8 +9,9 @@ public class Food {
     private int inCart;
     private int totalAvailable;
     private int numAvailable;
+    private ImageIcon Image;
 
-    public Food(String n, double p, int c, String d, int a) {
+    public Food(String n, double p, int c, String d, int a, ImageIcon img) {
         name = n;
         price = p;
         calories = c;
@@ -15,6 +19,7 @@ public class Food {
         totalAvailable = a;
         numAvailable = a;
         inCart = 0;
+        Image = img;
     }
     
     public String getName() {
