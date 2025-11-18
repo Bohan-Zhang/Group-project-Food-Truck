@@ -17,7 +17,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
     //Vars
     boolean nameSubmitted = false;
-    double money = 100.00;
+    double cartCost = 0.0;
 
     //COLOR
     Color pastelPink = new Color(255, 200, 240);
@@ -103,7 +103,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(greetings, JLayeredPane.DRAG_LAYER);
 
         //money setup
-        moneyLabel = new JLabel("Cash: $" + money);
+        moneyLabel = new JLabel("Cart: $" + cartCost);
         moneyLabel.setBounds((int) screenWidth/3/2+60, (int) screenHeight/2-360, 100, 25);
         moneyLabel.setVisible(false);
         phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
