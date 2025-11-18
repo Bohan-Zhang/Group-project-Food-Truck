@@ -252,5 +252,4 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         this.revalidate();
         this.repaint();
     }
-
 }
