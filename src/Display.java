@@ -7,53 +7,42 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //allows access to screen's dimension, creates screen width and height vars as doubles
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final Dimension screenSize = toolkit.getScreenSize();
-    final double screenWidth = screenSize.getWidth();
-    final double screenHeight = screenSize.getHeight();
+    public final double screenWidth = screenSize.getWidth();
+    public final double screenHeight = screenSize.getHeight();
 
     //menus
-    Menu entreesMenu;
-    Menu mainsMenu;
-    Menu drinksMenu;
-    Menu dessertsMenu;
+    private final Menu entreesMenu;
+    private final Menu mainsMenu;
+    private final Menu drinksMenu;
+    private final Menu dessertsMenu;
 
     //Vars
-    boolean nameSubmitted = false;
-    double cartCost = 0.0;
+    private boolean nameSubmitted = false;
+    public double cartCost = 0.0;
 
     //COLOR
-    Color pastelPink = new Color(255, 200, 240);
-
-    //foods 
-    public static JLabel taco;
-    public static JLabel pizza;
-    public static JLabel hamburger;
-    public static JLabel cheeseburger;
-    public static JLabel hotdog;
-    public static JLabel pasta;
-    public static JLabel grilledCheese;
-    public static JLabel turkeySandwich;
-
+    public final Color pastelPink = new Color(255, 200, 240);
 
     //creates components
-    JLayeredPane programLayer;
-    JLayeredPane phoneLayer;
-    JLabel phone;
-    JLabel restaurantName;
-    JTextField namer;
-    JLabel greetings;
-    JLabel moneyLabel;
-    JButton checkout;
-    JButton back;
+    private final JLayeredPane programLayer;
+    public final JLayeredPane phoneLayer;
+    private final JLabel phone;
+    private final JLabel restaurantName;
+    private final JTextField namer;
+    private final JLabel greetings;
+    public final JLabel moneyLabel;
+    private final JButton checkout;
+    private final JButton back;
 
     //creates menu components
-    JLabel entreesLabel;
-    JButton entreesButton;
-    JLabel mainsLabel;
-    JButton mainsButton;
-    JLabel drinksLabel;
-    JButton drinksButton;
-    JLabel dessertsLabel;
-    JButton dessertsButton;
+    private final JLabel entreesLabel;
+    private final JButton entreesButton;
+    private final JLabel mainsLabel;
+    private final JButton mainsButton;
+    private final JLabel drinksLabel;
+    private final JButton drinksButton;
+    private final JLabel dessertsLabel;
+    private final JButton dessertsButton;
 
 
     public Display() {
@@ -182,15 +171,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         dessertsMenu = new Menu(desserts.vanillaIceCream, desserts.chocolateIceCream, desserts.strawberryIceCream, desserts.brownie, desserts.chocolateChipCookie, desserts.butterCookie, desserts.applePie, desserts.glazedDonut, this);
         
         this.update();
-
-        //checks if it is fullscreen or not, centers if it is fullscreen
-        // while (true) {
-        //     if ((this.getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
-        //         programLayer.setLocation((int) screenWidth/3,0);
-        //     } else {
-        //         programLayer.setLocation(0,0);
-        //     }
-        // }
     }
 
     public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset){

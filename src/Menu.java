@@ -11,8 +11,6 @@ public class Menu implements ActionListener {
     final double screenWidth = screenSize.getWidth();
     final double screenHeight = screenSize.getHeight();
 
-    Color pastelPink = new Color(255, 200, 240);
-
     Display screen;
     JLabel pictureBG = new JLabel(new ImageIcon((Objects.requireNonNull(getClass().getResource("img/FoodBG.png")))));
     JLabel picture = new JLabel();
@@ -102,21 +100,21 @@ public class Menu implements ActionListener {
     public final void createItemOption(JButton itemName, JButton add, JButton subtract, int xOffset, int yOffset){
         itemName.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125,50);
         itemName.setOpaque(true);
-        itemName.setBackground(pastelPink);
+        itemName.setBackground(screen.pastelPink);
         itemName.addActionListener(this);
         itemName.setVisible(false);
         screen.phoneLayer.add(itemName, JLayeredPane.POPUP_LAYER);
 
         add.setText("+");
         add.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset+50, 63, 25);
-        add.setBackground(pastelPink); //remove once image set (or not if invisible bg on image)
+        add.setBackground(screen.pastelPink); //remove once image set (or not if invisible bg on image)
         add.addActionListener(this);
         add.setVisible(false);
         screen.phoneLayer.add(add, JLayeredPane.POPUP_LAYER);
 
         subtract.setText("-");
         subtract.setBounds((int) screenWidth/3/2+xOffset+62, (int) screenHeight/2+yOffset+50, 63, 25);
-        subtract.setBackground(pastelPink); //remove once image set (or not if invisible bg on image)
+        subtract.setBackground(screen.pastelPink); //remove once image set (or not if invisible bg on image)
         subtract.addActionListener(this);
         subtract.setVisible(false);
         screen.phoneLayer.add(subtract, JLayeredPane.POPUP_LAYER);

@@ -2,21 +2,21 @@
 import javax.swing.ImageIcon;
 
 public class Food {
-    private String name;
-    private double price;
-    private int calories;
-    private String description;
+    private final String name;
+    private final double price;
+    private final int calories;
+    private final String description;
     private int inCart;
-    private int totalAvailable;
+    private final int maxAvail;
     private int numAvailable;
-    private ImageIcon Image;
+    private final ImageIcon Image;
 
     public Food(String n, double p, int c, String d, int a, ImageIcon img) {
         name = n;
         price = p;
         calories = c;
         description = d;
-        totalAvailable = a;
+        maxAvail = a;
         numAvailable = a;
         inCart = 0;
         Image = img;
@@ -45,13 +45,13 @@ public class Food {
     }
 
     public void addToCart(){
-        if (inCart < totalAvailable && numAvailable > 0){
+        if (inCart < maxAvail && numAvailable > 0){
             inCart++;
             numAvailable--;
         }
     }
     public void removeFromCart(){
-        if (inCart > 0 && numAvailable < totalAvailable){
+        if (inCart > 0 && numAvailable < maxAvail){
             inCart--;
             numAvailable++;
         }
