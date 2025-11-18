@@ -23,6 +23,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //COLOR
     Color pastelPink = new Color(255, 200, 240);
 
+    //foods 
+    public static JLabel taco;
+    public static JLabel pizza;
+    public static JLabel hamburger;
+    public static JLabel cheeseburger;
+    public static JLabel hotdog;
+    public static JLabel pasta;
+    public static JLabel grilledCheese;
+    public static JLabel turkeySandwich;
+
+
     //creates components
     JLayeredPane programLayer;
     JLayeredPane phoneLayer;
@@ -73,6 +84,22 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         restaurantName = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("img/name.png"))));
         restaurantName.setBounds((int)screenWidth/3/2-144,(int) screenHeight/2-300, 287, 115);
         phoneLayer.add(restaurantName, JLayeredPane.POPUP_LAYER);
+
+        //taco setup
+        
+        /* taco = new JLabel();
+        ImageIcon tacoIcon = new ImageIcon(getClass().getResource("img/Taco.png"));
+        Image tacoImg = tacoIcon.getImage();
+
+        taco.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                taco.setIcon(new ImageIcon(tacoImg.getScaledInstance(taco.getWidth(), taco.getHeight(), Image.SCALE_SMOOTH)));
+            }
+        }); */
+
+        taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
+        //phoneLayer.add(taco);
+
 
         //namer setup
         namer = new JTextField("Who might you be?");
