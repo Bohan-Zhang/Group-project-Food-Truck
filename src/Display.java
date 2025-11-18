@@ -95,10 +95,10 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             public void componentResized(ComponentEvent e) {
                 taco.setIcon(new ImageIcon(tacoImg.getScaledInstance(taco.getWidth(), taco.getHeight(), Image.SCALE_SMOOTH)));
             }
-        }); */
+        }); 
 
         taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
-        //phoneLayer.add(taco);
+        phoneLayer.add(taco);*/
 
 
         //namer setup
