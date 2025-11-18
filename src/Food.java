@@ -4,7 +4,7 @@ public class Food {
     private int calories;
     private String description;
     private int inCart;
-    private final int totalAvailable;
+    private int totalAvailable;
     private int numAvailable;
 
     public Food(String n, double p, int c, String d, int a) {
