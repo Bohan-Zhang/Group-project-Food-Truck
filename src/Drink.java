@@ -2,11 +2,6 @@ import java.util.Objects;
 import javax.swing.ImageIcon;
 
 public class Drink {
-    private String name;
-    private double price;
-    private int calories;
-    private String description;
-    private int numAvailable;
     public Food redGlass;
     public Food redBottle;
     public Food whiteGlass;
