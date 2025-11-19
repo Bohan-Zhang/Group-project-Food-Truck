@@ -85,21 +85,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         restaurantName.setBounds((int)screenWidth/3/2-144,(int) screenHeight/2-300, 287, 115);
         phoneLayer.add(restaurantName, JLayeredPane.POPUP_LAYER);
 
-        //taco setup
-        
-        /* taco = new JLabel();
-        ImageIcon tacoIcon = new ImageIcon(getClass().getResource("img/Taco.png"));
-        Image tacoImg = tacoIcon.getImage();
-
-        taco.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                taco.setIcon(new ImageIcon(tacoImg.getScaledInstance(taco.getWidth(), taco.getHeight(), Image.SCALE_SMOOTH)));
-            }
-        }); 
-
-        taco.setBounds((int)screenWidth/3/2, (int)screenHeight/2, 287, 115);
-        phoneLayer.add(taco);*/
-
 
         //namer setup
         namer = new JTextField("Who might you be?");
