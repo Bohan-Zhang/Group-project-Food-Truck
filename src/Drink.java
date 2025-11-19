@@ -9,16 +9,16 @@ public class Drink {
     public Food citrusSplash;
     public Food berryBreeze;
     public Food pinaColada;
-    public Food tequila;
+    public Food bananaShake;
 
     public Drink(){
     redGlass = new Food("Red Wineglass", 13.50, 133, "A Glass of Merlot", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/RedWineglass.png")))));
     redBottle = new Food("Red Winebottle", 29.99, 295,"A Full Bottle of Merlot for you to take home", 10, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/RedWinebottle.png")))));
     whiteGlass = new Food("White Wineglass", 9.99, 120, "A Glass of Chardonnay", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/WhiteWineglass.png")))));
     whiteBottle = new Food("White Winebottle", 22.18, 266, "A Full Bottle of Chardonnay for you to take home", 10, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/WhiteWinebottle.png")))));
-    citrusSplash = new Food("Citrus Splash", 9.50, 50, "A sweet, refreshing drink made from mixed citrus juices like orange, tangerine, grapefruit, and lime.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
-    berryBreeze = new Food("Berry Breeze", 2.50, 70, "A fruity, refreshing drink made from a blend of mixed berries like strawberry, blueberry, and raspberry.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
-    pinaColada = new Food("Piña Colada", 3.00, 120, "A sweet, creamy drink made with pineapple and coconut.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
-    tequila = new Food("Tequila", 7.50, 330, "A strong, clear spirit made from the blue agave plant in Mexico.", 10, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+    citrusSplash = new Food("Citrus Splash", 9.50, 50, "A sweet, refreshing drink made from mixed citrus juices like orange, tangerine, grapefruit, and lime.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/CitrusSplash.png")))));
+    berryBreeze = new Food("Berry Breeze", 2.50, 70, "A fruity, refreshing drink made from a blend of mixed berries like strawberry, blueberry, and raspberry.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/BerryBlast.png")))));
+    pinaColada = new Food("Piña Colada", 3.00, 120, "A sweet, creamy drink made with pineapple and coconut.", 20, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/PinaColada.png")))));
+    bananaShake = new Food("Banana Milshake", 7.50, 330, "A vanilla and banana ice cream milkshake whipped to perfection(our machine actually works)", 10, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/BananaMilkshake.png")))));
     }
 }

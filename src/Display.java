@@ -150,7 +150,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         mainsMenu = new Menu(mains.cheeseburger, mains.hotdog, mains.pasta, mains.grilledCheese, mains.turkeySandwich, mains.tacos, mains.pizza, mains.hamburger, this);
 
         Drink drinks = new Drink();
-        drinksMenu = new Menu(drinks.redGlass, drinks.redBottle, drinks.whiteGlass, drinks.whiteBottle, drinks.citrusSplash, drinks.berryBreeze, drinks.pinaColada, drinks.tequila, this);
+        drinksMenu = new Menu(drinks.redGlass, drinks.redBottle, drinks.whiteGlass, drinks.whiteBottle, drinks.citrusSplash, drinks.berryBreeze, drinks.pinaColada, drinks.bananaShake, this);
         
         DessertsFoods desserts = new DessertsFoods(); 
         dessertsMenu = new Menu(desserts.vanillaIceCream, desserts.chocolateIceCream, desserts.strawberryIceCream, desserts.brownie, desserts.chocolateChipCookie, desserts.butterCookie, desserts.applePie, desserts.glazedDonut, this);
