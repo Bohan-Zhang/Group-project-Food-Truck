@@ -175,7 +175,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         label.setBackground(pastelPink);
         label.setVisible(false);
         phoneLayer.add(label, JLayeredPane.POPUP_LAYER);
-        button.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125, 150);
+        button.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125, 100);
         button.setBackground(pastelPink); //remove once image set (or not if invisible bg on image)
         button.setIcon(img);
         button.addActionListener(this);
