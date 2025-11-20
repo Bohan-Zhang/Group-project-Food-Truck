@@ -115,7 +115,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         //money setup
         moneyLabel = new JLabel("<html><body>Cart: $" + cartCost+"<html>");
-        moneyLabel.setBounds((int) screenWidth/3/2-85, (int) screenHeight/3-180, 100, 25);
+        moneyLabel.setBounds((int) screenWidth/3/2-70, (int) screenHeight/3-180, 100, 25);
         moneyLabel.setVisible(false);
         phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
 
@@ -128,7 +128,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
         back = new JButton("Back");
-        back.setBounds((int) screenWidth/3/2-165, (int) screenHeight/3-180, 75, 25);
+        back.setBounds((int) screenWidth/3/2-150, (int) screenHeight/3-180, 75, 25);
         back.setBackground(pastelPink);
         back.addActionListener(this);
         back.setVisible(false);
