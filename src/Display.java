@@ -33,6 +33,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     public final JLabel moneyLabel;
     private final JButton checkout;
     private final JButton back;
+    private final JButton cartButton;
 
     //creates menu components
     private final JLabel entreesLabel;
@@ -104,11 +105,20 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         greetings.setVisible(false);
         phoneLayer.add(greetings, JLayeredPane.DRAG_LAYER);
 
+        //cart setup
+        cartButton = new JButton("View orders");
+        cartButton.setBounds((int) screenWidth/3/2, (int) screenHeight/3-180, 100, 25);
+        cartButton.setBackground(pastelPink);
+        cartButton.addActionListener(this);
+        cartButton.setVisible(false);
+        phoneLayer.add(cartButton, JLayeredPane.POPUP_LAYER);
+
         //money setup
         moneyLabel = new JLabel("Cart: $" + cartCost);
-        moneyLabel.setBounds((int) screenWidth/3/2+60, (int) screenHeight/2-360, 100, 25);
+        moneyLabel.setBounds((int) screenWidth/3/2-95, (int) screenHeight/3-180, 75, 25);
         moneyLabel.setVisible(false);
         phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
+
 
         //checkout button setup
         checkout = new JButton("Come 'n get it!");
@@ -119,7 +129,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
         back = new JButton("Back");
-        back.setBounds((int) screenWidth/3/2-155, (int) screenHeight/2-180, 75, 25);
+        back.setBounds((int) screenWidth/3/2-155, (int) screenHeight/3-180, 75, 25);
         back.setBackground(pastelPink);
         back.addActionListener(this);
         back.setVisible(false);
@@ -180,6 +190,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && !namer.getText().equals("Who might you be?") && !nameSubmitted){
             namer.setVisible(false);
             moneyLabel.setVisible(true);
+            cartButton.setVisible(true);
             this.mainMenuVisibilities(true);
             nameSubmitted = true;
         }
