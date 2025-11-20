@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.*;
 
@@ -19,6 +20,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //Vars
     private boolean nameSubmitted = false;
     public double cartCost = 0.0;
+    public ArrayList<Food> cart = new ArrayList<>();
 
     //COLOR
     public final Color pastelPink = new Color(255, 200, 240);
