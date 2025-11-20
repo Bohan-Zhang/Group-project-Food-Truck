@@ -12,9 +12,9 @@ public class Main {
 
         //File bgMusic = new File(screen.getClass().getResource("Banana Milkshake.wav"));
         File bgMusic = new File("src/Banana Milkshake.wav");
-        AudioInputStream bgStream = AudioSystem.getAudioInputStream(bgMusic);
 
         try {
+            AudioInputStream bgStream = AudioSystem.getAudioInputStream(bgMusic);
             Clip bgClip = AudioSystem.getClip();
             bgClip.open(bgStream);
             bgClip.loop(-1);
