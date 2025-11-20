@@ -15,8 +15,8 @@ public class EntreesFood {
     
 
     public EntreesFood(){
-        chips = new Food("Chip Platter", 5.00, 150, "Exhuberantly delicate crisps held in a bag, presented on a silver platter", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
-        calamari = new Food("Calamari Box", 9.75, 110, "Squid in a box.", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        chips = new Food("Chip Platter", 5.00, 150, "Exhuberantly delicate crisps held in a bag, presented on a silver platter", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/Chip Platter.png")))));
+        calamari = new Food("Calamari Box", 9.75, 110, "Squid in a box.", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/Calamari.png")))));
         scallops = new Food("Scallops bag", 14.25, 140, "...its literally just scallops... in a bag...", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
         fries = new Food("Fries", 5.00, 150, "This perfect blend of salt and pomme de terre creates a simple yet exhilerating taste.", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
         frys = new Food("Frys", 7.00, 100, "Put the frys in the bag and eat a family of young eels!", 5, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
