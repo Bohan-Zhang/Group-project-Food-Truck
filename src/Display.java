@@ -140,19 +140,19 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         //entrees label and button setup
         entreesLabel = new JLabel("Entrées", SwingConstants.CENTER);
         entreesButton = new JButton();
-        this.optionSetup(entreesLabel, entreesButton, -150, -100);
+        this.optionSetup(entreesLabel, entreesButton, -150, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
         //mains label and button setup
         mainsLabel = new JLabel("Mains", SwingConstants.CENTER);
         mainsButton = new JButton();
-        this.optionSetup(mainsLabel, mainsButton, 15, -100);
+        this.optionSetup(mainsLabel, mainsButton, 15, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
         //drinks label and button setup
         drinksLabel = new JLabel("Drinks", SwingConstants.CENTER);
         drinksButton = new JButton();
-        this.optionSetup(drinksLabel, drinksButton, -150, 100);
+        this.optionSetup(drinksLabel, drinksButton, -150, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
         //desserts label and button setup
         dessertsLabel = new JLabel("Desserts", SwingConstants.CENTER);
         dessertsButton = new JButton();
-        this.optionSetup(dessertsLabel, dessertsButton, 15, 100);
+        this.optionSetup(dessertsLabel, dessertsButton, 15, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
 
         EntreesFood entrees = new EntreesFood();
         entreesMenu = new Menu(entrees.chips, entrees.calamari, entrees.scallops, entrees.macNCheese, entrees.fries, entrees.frys, entrees.chickenNuggets, entrees.shrimp, this);
@@ -169,7 +169,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         this.update();
     }
 
-    public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset){
+    public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset, ImageIcon img){
         label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125,50);
         label.setOpaque(true);
         label.setBackground(pastelPink);
@@ -177,6 +177,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(label, JLayeredPane.POPUP_LAYER);
         button.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125, 150);
         button.setBackground(pastelPink); //remove once image set (or not if invisible bg on image)
+        button.setIcon(img);
         button.addActionListener(this);
         button.setVisible(false);
         phoneLayer.add(button, JLayeredPane.MODAL_LAYER);
