@@ -71,10 +71,10 @@ public class Menu implements ActionListener {
         pictureBG.setVisible(false);
         createDetail(picture, -150, 250, 100, 100);
         createDetail(description, -150, 200, 300, 50);
-        createDetail(cost, -40, 250, 80, 25);
-        createDetail(calories, -40, 275, 80, 25);
-        createDetail(inStock, -40, 300, 80, 25);
-        createDetail(inCart, -40, 325, 80, 25);
+        createDetail(cost, -40, 250, 130, 25);
+        createDetail(calories, -40, 275, 130, 25);
+        createDetail(inStock, -40, 300, 130, 25);
+        createDetail(inCart, -40, 325, 130, 25);
         
 
         item1Name = new JButton(item1.getName());
@@ -163,7 +163,7 @@ public class Menu implements ActionListener {
     public void setDetails(Food item, int current){
         pictureBG.setIcon(new ImageIcon((getClass().getResource("img/FoodBG.png"))));
         picture.setIcon(item.getImage()); //change to food img
-        cost.setText("$" + item.getPrice());
+        cost.setText("$" + addZeroes(item.getPrice()));
         calories.setText(item.getCalories() + " calories");
         inStock.setText(item.getNumAvailable() + " in stock");
         inCart.setText(item.getInCart() + " in your cart");
@@ -181,10 +181,18 @@ public class Menu implements ActionListener {
          item.removeFromCart();     
          screen.cartCost -= item.getPrice();        
         }
-        screen.moneyLabel.setText("Cash: $" + screen.cartCost);
+        screen.moneyLabel.setText("Cash: $" + addZeroes(screen.cartCost));
         if (currentDetails == current){
             setDetails(item, current);
         }
+    }
+
+    private String addZeroes(double number) {
+        String numString = Double.toString(number);
+        if (numString.indexOf(".") == numString.length() - 2){
+            numString += "0";
+        }
+        return numString;
     }
 
     @Override
