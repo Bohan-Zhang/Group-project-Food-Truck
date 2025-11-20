@@ -119,7 +119,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
         back = new JButton("Back");
-        back.setBounds((int) screenWidth/3/2+50, (int) screenHeight/2+275, 75, 25);
+        back.setBounds((int) screenWidth/3/2-155, (int) screenHeight/2-180, 75, 25);
         back.setBackground(pastelPink);
         back.addActionListener(this);
         back.setVisible(false);
