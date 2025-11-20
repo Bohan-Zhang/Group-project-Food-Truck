@@ -107,7 +107,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         //cart setup
         cartButton = new JButton("View orders");
-        cartButton.setBounds((int) screenWidth/3/2, (int) screenHeight/3-180, 150, 25);
+        cartButton.setBounds((int) screenWidth/3/2+25, (int) screenHeight/3-180, 125, 25);
         cartButton.setBackground(pastelPink);
         cartButton.addActionListener(this);
         cartButton.setVisible(false);
