@@ -86,12 +86,12 @@ public class Menu implements ActionListener {
         item7Name = new JButton(item7.getName());
         item8Name = new JButton(item8.getName());
 
-        createItemOption(item1Name, add1, subtract1, -150, -175);
-        createItemOption(item2Name, add2, subtract2, 20, -175);
-        createItemOption(item3Name, add3, subtract3, -150, -75);
-        createItemOption(item4Name, add4, subtract4, 20,-75);
-        createItemOption(item5Name, add5, subtract5, -150, 25);
-        createItemOption(item6Name, add6, subtract6, 20, 25);
+        createItemOption(item1Name, add1, subtract1, -150, -145);
+        createItemOption(item2Name, add2, subtract2, 20, -145);
+        createItemOption(item3Name, add3, subtract3, -150, -55);
+        createItemOption(item4Name, add4, subtract4, 20, -55);
+        createItemOption(item5Name, add5, subtract5, -150, 35);
+        createItemOption(item6Name, add6, subtract6, 20, 35);
         createItemOption(item7Name, add7, subtract7, -150, 125);
         createItemOption(item8Name, add8, subtract8, 20, 125);
     }
@@ -163,10 +163,10 @@ public class Menu implements ActionListener {
     public void setDetails(Food item, int current){
         pictureBG.setIcon(new ImageIcon((getClass().getResource("img/FoodBG.png"))));
         picture.setIcon(item.getImage()); //change to food img
-        cost.setText("$" + item.getPrice());
-        calories.setText(item.getCalories() + " calories");
-        inStock.setText(item.getNumAvailable() + " in stock");
-        inCart.setText(item.getInCart() + " in your cart");
+        cost.setText("<html><body>$" + item.getPrice() + "<html>");
+        calories.setText("<html><body>" + item.getCalories() + " calories<html>");
+        inStock.setText("<html><body>" + item.getNumAvailable() + " in stock<html>");
+        inCart.setText("<html><body>" + item.getInCart() + " in your cart <html>");
         description.setText("<html><body>" + item.getDescription() + "<html>");
         currentDetails = current;
         screen.update();
