@@ -107,18 +107,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         //cart setup
         cartButton = new JButton("View orders");
-        cartButton.setBounds((int) screenWidth/3/2, (int) screenHeight/3-180, 100, 25);
+        cartButton.setBounds((int) screenWidth/3/2, (int) screenHeight/3-180, 150, 25);
         cartButton.setBackground(pastelPink);
         cartButton.addActionListener(this);
         cartButton.setVisible(false);
         phoneLayer.add(cartButton, JLayeredPane.POPUP_LAYER);
 
         //money setup
-        moneyLabel = new JLabel("Cart: $" + cartCost);
-        moneyLabel.setBounds((int) screenWidth/3/2-95, (int) screenHeight/3-180, 75, 25);
+        moneyLabel = new JLabel("<html><body>Cart: $" + cartCost+"<html>");
+        moneyLabel.setBounds((int) screenWidth/3/2-85, (int) screenHeight/3-180, 100, 25);
         moneyLabel.setVisible(false);
         phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
-
 
         //checkout button setup
         checkout = new JButton("Come 'n get it!");
@@ -129,7 +128,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
         back = new JButton("Back");
-        back.setBounds((int) screenWidth/3/2-155, (int) screenHeight/3-180, 75, 25);
+        back.setBounds((int) screenWidth/3/2-165, (int) screenHeight/3-180, 75, 25);
         back.setBackground(pastelPink);
         back.addActionListener(this);
         back.setVisible(false);
@@ -137,7 +136,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         //menu select setup
         //entrees label and button setup
-        entreesLabel = new JLabel("Entrees", SwingConstants.CENTER);
+        entreesLabel = new JLabel("Entrées", SwingConstants.CENTER);
         entreesButton = new JButton();
         this.optionSetup(entreesLabel, entreesButton, -150, -100);
         //mains label and button setup
@@ -218,6 +217,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             dessertsMenu.setMenuVisibility(true);
         }
         else if(e.getSource() == checkout){
+            this.mainMenuVisibilities(false);
+        }
+        else if(e.getSource() == cartButton){
             this.mainMenuVisibilities(false);
         }
         else if(e.getSource() == back){

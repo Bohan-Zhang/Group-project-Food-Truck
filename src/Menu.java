@@ -77,14 +77,14 @@ public class Menu implements ActionListener {
         createDetail(inCart, -40, 325, 130, 25);
         
 
-        item1Name = new JButton(item1.getName());
-        item2Name = new JButton(item2.getName());
-        item3Name = new JButton(item3.getName());
-        item4Name = new JButton(item4.getName());
-        item5Name = new JButton(item5.getName());
-        item6Name = new JButton(item6.getName());
-        item7Name = new JButton(item7.getName());
-        item8Name = new JButton(item8.getName());
+        item1Name = new JButton("<html><body>"+item1.getName()+"<html>");
+        item2Name = new JButton("<html><body>"+item2.getName()+"<html>");
+        item3Name = new JButton("<html><body>"+item3.getName()+"<html>");
+        item4Name = new JButton("<html><body>"+item4.getName()+"<html>");
+        item5Name = new JButton("<html><body>"+item5.getName()+"<html>");
+        item6Name = new JButton("<html><body>"+item6.getName()+"<html>");
+        item7Name = new JButton("<html><body>"+item7.getName()+"<html>");
+        item8Name = new JButton("<html><body>"+item8.getName()+"<html>");
 
         createItemOption(item1Name, add1, subtract1, -150, -145);
         createItemOption(item2Name, add2, subtract2, 20, -145);
@@ -181,7 +181,7 @@ public class Menu implements ActionListener {
          item.removeFromCart();     
          screen.cartCost -= item.getPrice();        
         }
-        screen.moneyLabel.setText("Cash: $" + addZeroes(screen.cartCost));
+        screen.moneyLabel.setText("<html><body>Cash: $" + addZeroes(screen.cartCost)+ "<html>");
         if (currentDetails == current){
             setDetails(item, current);
         }
