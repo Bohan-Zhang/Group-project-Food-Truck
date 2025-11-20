@@ -223,6 +223,10 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         }
         else if(e.getSource() == cartButton){
             this.mainMenuVisibilities(false);
+            entreesMenu.setMenuVisibility(false);
+            mainsMenu.setMenuVisibility(false);
+            drinksMenu.setMenuVisibility(false);
+            dessertsMenu.setMenuVisibility(false);
         }
         else if(e.getSource() == back){
             this.mainMenuVisibilities(true);
