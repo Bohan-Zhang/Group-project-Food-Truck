@@ -189,8 +189,11 @@ public class Menu implements ActionListener {
 
     private String addZeroes(double number) {
         String numString = Double.toString(number);
-        if (numString.indexOf(".") == numString.length() - 2){
+        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
             numString += "0";
+        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
+            numString = numString.substring(0, numString.indexOf(".") + 3);
+            
         }
         return numString;
     }
