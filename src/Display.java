@@ -170,7 +170,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     }
 
     public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset, ImageIcon img){
-        label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125,50);
+        label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset+100, 125,50);
         label.setOpaque(true);
         label.setBackground(pastelPink);
         label.setVisible(false);
