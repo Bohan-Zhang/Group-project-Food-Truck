@@ -86,14 +86,14 @@ public class Menu implements ActionListener {
         item7Name = new JButton(item7.getName());
         item8Name = new JButton(item8.getName());
 
-        createItemOption(item1Name, add1, subtract1, -150, -175);
-        createItemOption(item2Name, add2, subtract2, 20, -175);
-        createItemOption(item3Name, add3, subtract3, -150, -75);
-        createItemOption(item4Name, add4, subtract4, 20,-75);
-        createItemOption(item5Name, add5, subtract5, -150, 25);
-        createItemOption(item6Name, add6, subtract6, 20, 25);
-        createItemOption(item7Name, add7, subtract7, -150, 125);
-        createItemOption(item8Name, add8, subtract8, 20, 125);
+        createItemOption(item1Name, add1, subtract1, -150, -145);
+        createItemOption(item2Name, add2, subtract2, 20, -145);
+        createItemOption(item3Name, add3, subtract3, -150, -55);
+        createItemOption(item4Name, add4, subtract4, 20,-55);
+        createItemOption(item5Name, add5, subtract5, -150, 45);
+        createItemOption(item6Name, add6, subtract6, 20, 45);
+        createItemOption(item7Name, add7, subtract7, -150, 135);
+        createItemOption(item8Name, add8, subtract8, 20, 135);
     }
 
     public final void createItemOption(JButton itemName, JButton add, JButton subtract, int xOffset, int yOffset){
