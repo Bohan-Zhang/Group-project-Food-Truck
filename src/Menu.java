@@ -179,11 +179,11 @@ public class Menu implements ActionListener {
             screen.cart.add(item);
         }
         else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() >= 0){
-         item.removeFromCart();     
-         screen.cartCost -= item.getPrice();       
-         screen.cart.remove(item);  
+            item.removeFromCart();     
+            screen.cartCost -= item.getPrice();       
+            screen.cart.remove(item);  
         }
-        screen.moneyLabel.setText("<html><body>Cash: $" + addZeroes(screen.cartCost)+ "<html>");
+        screen.moneyLabel.setText("<html><body>Cart: $" + addZeroes(screen.cartCost)+ "<html>");
         if (currentDetails == current){
             setDetails(item, current);
         }
