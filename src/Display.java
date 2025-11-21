@@ -308,8 +308,8 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             this.mainMenuVisibilities(false);
             dessertsMenu.setMenuVisibility(true);
         }
-        else if(e.getSource() == cartButton || e.getSource() == checkout){
-            cartText = "<html><body>";
+        else if(e.getSource() == checkout) {
+            cartText = "<html><body>"; 
             cartPrices = "<html><body>";
             for (int i = 0; i<cart.size(); i++){
                 cartText += cart.get(i).getName() + "<br><br>";
@@ -339,6 +339,39 @@ public class Display extends JFrame implements KeyListener, ActionListener {
                 namer.setText("Please verify your name to continue");
                 namer.setVisible(true);
             }
+        } 
+        else if (e.getSource() == cartButton) {
+            cartText = "<html><body>"; 
+            cartPrices = "<html><body>";
+            for (int i = 0; i<cart.size(); i++){
+                cartText += cart.get(i).getName() + "<br><br>";
+                cartPrices += "$" + addZeroes(cart.get(i).getPrice()) + "<br><br>";
+            }
+            cartText += "TOTAL<html>";
+            cartPrices += "$" + addZeroes(cartCost) + "<html>";
+
+            if(cart.isEmpty()){
+                cartText = "Your cart is empty";
+            }
+    
+            cartNamesLabel.setText(cartText);
+            cartPricesLabel.setText(cartPrices);
+            
+            cartButton.setVisible(false);
+            cartNamesLabel.setVisible(true);
+            cartPricesLabel.setVisible(true);
+            this.mainMenuVisibilities(false);
+            entreesMenu.setMenuVisibility(false);
+            mainsMenu.setMenuVisibility(false);
+            drinksMenu.setMenuVisibility(false);
+            dessertsMenu.setMenuVisibility(false);
+
+            if(e.getSource() == checkout && !cart.isEmpty()){
+                namer.setLocation((int) screenWidth/3/2-150, (int) screenHeight/2+275);
+                namer.setText("Please verify your name to continue");
+                namer.setVisible(true);
+            }
+            checkout.setVisible(true);
         }
         else if(e.getSource() == back){
             this.mainMenuVisibilities(true);
