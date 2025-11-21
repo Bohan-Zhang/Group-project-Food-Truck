@@ -334,7 +334,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             drinksMenu.setMenuVisibility(false);
             dessertsMenu.setMenuVisibility(false);
 
-            if(e.getSource() == checkout && !cart.isEmpty()){
+            if(!cart.isEmpty()){
                 namer.setLocation((int) screenWidth/3/2-150, (int) screenHeight/2+275);
                 namer.setText("Please verify your name to continue");
                 namer.setVisible(true);
@@ -366,11 +366,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             drinksMenu.setMenuVisibility(false);
             dessertsMenu.setMenuVisibility(false);
 
-            if(e.getSource() == checkout && !cart.isEmpty()){
-                namer.setLocation((int) screenWidth/3/2-150, (int) screenHeight/2+275);
-                namer.setText("Please verify your name to continue");
-                namer.setVisible(true);
-            }
             checkout.setVisible(true);
         }
         else if(e.getSource() == back){
