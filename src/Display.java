@@ -48,9 +48,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final JLabel cartPricesLabel;
     private final JLabel captcha;
     private final JButton captchaButton;
-    private JLabel thanks;
-    private JButton again;
-    private JButton exit;
+    private final JLabel thanks;
+    private final JButton again;
+    private final JButton exit;
 
     //creates menu components
     private final JLabel entreesLabel;
