@@ -3,8 +3,6 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 
 public class Main {
-
-    
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         new Display();
 
@@ -17,8 +15,11 @@ public class Main {
             bgClip.open(bgStream);
             bgClip.loop(-1);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
-        
+    }
+
+    public static void restart(){
+        new Display();
     }
 }

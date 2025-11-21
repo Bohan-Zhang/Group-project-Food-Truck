@@ -176,12 +176,14 @@ public class Menu implements ActionListener {
         if(source == add && item.getNumAvailable() > 0){
             item.addToCart();
             screen.cartCost += item.getPrice();
+            screen.cart.add(item);
         }
         else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() >= 0){
-         item.removeFromCart();     
-         screen.cartCost -= item.getPrice();        
+            item.removeFromCart();     
+            screen.cartCost -= item.getPrice();       
+            screen.cart.remove(item);  
         }
-        screen.moneyLabel.setText("<html><body>Cash: $" + addZeroes(screen.cartCost)+ "<html>");
+        screen.moneyLabel.setText("<html><body>Cart: $" + addZeroes(screen.cartCost)+ "<html>");
         if (currentDetails == current){
             setDetails(item, current);
         }
@@ -189,8 +191,11 @@ public class Menu implements ActionListener {
 
     private String addZeroes(double number) {
         String numString = Double.toString(number);
-        if (numString.indexOf(".") == numString.length() - 2){
+        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
             numString += "0";
+        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
+            numString = numString.substring(0, numString.indexOf(".") + 3);
+            
         }
         return numString;
     }

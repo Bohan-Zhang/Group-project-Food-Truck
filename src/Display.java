@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.*;
 
+@SuppressWarnings("LeakingThisInConstructor")
 public class Display extends JFrame implements KeyListener, ActionListener {
     //allows access to screen's dimension, creates screen width and height vars as doubles
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -17,13 +18,20 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final Menu drinksMenu;
     private final Menu dessertsMenu;
 
+    //Static Vars
+    private static boolean nameSubmitted = false;
+    private static String name;
+
     //Vars
-    private boolean nameSubmitted = false;
     public double cartCost = 0.0;
     public ArrayList<Food> cart = new ArrayList<>();
+    private String cartText;
+    private String cartPrices;
+    private int captchaCounter = 0;
 
-    //COLOR
+    //Color or gif
     public final Color pastelPink = new Color(255, 200, 240);
+    private final ImageIcon captchaComplete = new ImageIcon((Objects.requireNonNull(getClass().getResource("img/captchacomplete.gif"))));
 
     //creates components
     private final JLayeredPane programLayer;
@@ -36,6 +44,13 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final JButton checkout;
     private final JButton back;
     private final JButton cartButton;
+    private final JLabel cartNamesLabel;
+    private final JLabel cartPricesLabel;
+    private final JLabel captcha;
+    private final JButton captchaButton;
+    private final JLabel thanks;
+    private final JButton again;
+    private final JButton exit;
 
     //creates menu components
     private final JLabel entreesLabel;
@@ -47,7 +62,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final JLabel dessertsLabel;
     private final JButton dessertsButton;
 
-
     public Display() {
         //frame setup
         this.setTitle("Babe's Château de Fast Food");
@@ -55,14 +69,20 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         this.setBounds(0, 0, (int)screenWidth/3, (int) screenHeight);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(pastelPink);
+        this.setUndecorated(false);
         this.addKeyListener(this);
         this.setVisible(true);
+
+        //fullscreen checker setup
+        //Timer fullscreenTimer = new Timer(8000, (ActionEvent a) -> {
+            
+        //});
+        //fullscreenTimer.start();
 
         //layer setup
         programLayer = new JLayeredPane();
         programLayer.setBounds(0, 0, (int)screenWidth/3, (int) screenHeight);
         this.add(programLayer);
-
 
         //phone setup; option buttons will be added directly to the phone.
         phone = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("img/phone.png"))));
@@ -86,7 +106,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             //runs when the user clicks on the field
             @Override
             public void focusGained(FocusEvent e) {
-                if (namer.getText().equals("Who might you be?")) {
+                if (namer.getText().equals("Who might you be?") || namer.getText().equals("Please verify your name to continue")) {
                     namer.setText("");
                 }
             }
@@ -94,7 +114,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             @Override
             public void focusLost(FocusEvent e) {
                 if (namer.getText().isEmpty()) {
-                    namer.setText("Who might you be?");
+                    namer.setText("Please verify your name to continue");
                 }
             }
         });
@@ -114,9 +134,20 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         cartButton.addActionListener(this);
         cartButton.setVisible(false);
         phoneLayer.add(cartButton, JLayeredPane.POPUP_LAYER);
+        cartNamesLabel = new JLabel();
+        cartNamesLabel.setBounds((int)screenWidth/3/2-150, (int)screenHeight/2-160, 350, 500);
+        cartNamesLabel.setVisible(false);
+        cartNamesLabel.setVerticalAlignment(SwingConstants.TOP);
+        phoneLayer.add(cartNamesLabel, JLayeredPane.MODAL_LAYER);
+        cartPricesLabel = new JLabel();
+        cartPricesLabel.setBounds((int)screenWidth/3/2+100, (int)screenHeight/2-160, 50, 500);
+        cartPricesLabel.setVisible(false);
+        cartPricesLabel.setVerticalAlignment(SwingConstants.TOP);
+        cartPricesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        phoneLayer.add(cartPricesLabel, JLayeredPane.MODAL_LAYER);
 
         //money setup
-        moneyLabel = new JLabel("<html><body>Cart: $" + cartCost+"<html>");
+        moneyLabel = new JLabel("<html><body>Cart: $0.00<html>");
         moneyLabel.setBounds((int) screenWidth/3/2-70, (int) screenHeight/3-180, 100, 25);
         moneyLabel.setVisible(false);
         phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
@@ -129,6 +160,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         checkout.setVisible(false);
         phoneLayer.add(checkout, JLayeredPane.POPUP_LAYER);
 
+        //back button setup
         back = new JButton("Back");
         back.setBounds((int) screenWidth/3/2-150, (int) screenHeight/3-180, 75, 25);
         back.setBackground(pastelPink);
@@ -136,11 +168,42 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         back.setVisible(false);
         phoneLayer.add(back, JLayeredPane.POPUP_LAYER);
 
+        //captcha setup for later
+        captcha = new JLabel(new ImageIcon((Objects.requireNonNull(getClass().getResource("img/captcha.png")))));
+        captcha.setBounds((int) screenWidth/2/3-125, (int) screenHeight/2-33, 250, 66);
+        captcha.setVisible(false);
+        phoneLayer.add(captcha, JLayeredPane.DRAG_LAYER);
+        captchaButton = new JButton();
+        captchaButton.setBackground(new Color(252,252,252));
+        captchaButton.setBounds(15, 23, 21, 21);
+        captchaButton.addActionListener(this);
+        captcha.add(captchaButton);
+
+        //thanks, again, and exit setup
+        thanks = new JLabel("<html><body>Thank you for ordering, please come pick up your food immediately<html>", SwingConstants.CENTER);
+        thanks.setBounds((int) screenWidth/2/3-150, (int) screenHeight/2-25,300, 50);
+        thanks.setVisible(false);
+        phoneLayer.add(thanks, JLayeredPane.DRAG_LAYER);
+
+        again = new JButton("Order Again");
+        again.setBounds((int) screenWidth/2/3-175, (int) screenHeight/2+200, 150, 25);
+        again.setBackground(pastelPink);
+        again.addActionListener(this);
+        again.setVisible(false);
+        phoneLayer.add(again, JLayeredPane.POPUP_LAYER);
+
+        exit = new JButton("Exit App");
+        exit.setBounds((int) screenWidth/2/3+15, (int) screenHeight/2+200, 150, 25);
+        exit.setBackground(pastelPink);
+        exit.addActionListener(this);
+        exit.setVisible(false);
+        phoneLayer.add(exit, JLayeredPane.POPUP_LAYER);
+
         //menu select setup
         //entrees label and button setup
         entreesLabel = new JLabel("Entrées", SwingConstants.CENTER);
         entreesButton = new JButton();
-        this.optionSetup(entreesLabel, entreesButton, -150, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        this.optionSetup(entreesLabel, entreesButton, -150, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/GeneralEntrees.png")))));
         //mains label and button setup
         mainsLabel = new JLabel("Mains", SwingConstants.CENTER);
         mainsButton = new JButton();
@@ -167,15 +230,30 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         dessertsMenu = new Menu(desserts.vanillaIceCream, desserts.chocolateIceCream, desserts.strawberryIceCream, desserts.brownie, desserts.chocolateChipCookie, desserts.butterCookie, desserts.applePie, desserts.glazedDonut, this);
         
         this.update();
+
+        if (nameSubmitted){
+            namer.setVisible(false);
+            moneyLabel.setVisible(true);
+            cartButton.setVisible(true);
+            mainMenuVisibilities(true);
+        }
+
+        this.addWindowStateListener((WindowEvent e) -> {
+            if ((e.getNewState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+                phone.setLocation((int) screenWidth/3, 0);
+            } else if ((e.getOldState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+                phone.setLocation(0, 0);
+            }
+        });
     }
 
     public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset, ImageIcon img){
-        label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125,50);
+        label.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset+100, 125,50);
         label.setOpaque(true);
         label.setBackground(pastelPink);
         label.setVisible(false);
         phoneLayer.add(label, JLayeredPane.POPUP_LAYER);
-        button.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125, 150);
+        button.setBounds((int) screenWidth/3/2+xOffset, (int) screenHeight/2+yOffset, 125, 100);
         button.setBackground(pastelPink); //remove once image set (or not if invisible bg on image)
         button.setIcon(img);
         button.addActionListener(this);
@@ -189,12 +267,23 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     public void keyTyped(KeyEvent e) {}
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && !namer.getText().equals("Who might you be?") && !nameSubmitted){
-            namer.setVisible(false);
-            moneyLabel.setVisible(true);
-            cartButton.setVisible(true);
-            this.mainMenuVisibilities(true);
-            nameSubmitted = true;
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && (!namer.getText().equals("Who might you be?") || !namer.getText().equalsIgnoreCase("Please verify your name to continue")) && (!nameSubmitted || namer.getText().equals(name))){
+            if (!nameSubmitted){
+                namer.setVisible(false);
+                name = namer.getText();
+                moneyLabel.setVisible(true);
+                cartButton.setVisible(true);
+                this.mainMenuVisibilities(true);
+                nameSubmitted = true;
+            }
+            else{
+                namer.setVisible(false);
+                cartNamesLabel.setVisible(false);
+                cartPricesLabel.setVisible(false);
+                back.setVisible(false);
+                moneyLabel.setVisible(false);
+                captcha.setVisible(true);
+            }
         }
     }
     @Override
@@ -219,28 +308,92 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             this.mainMenuVisibilities(false);
             dessertsMenu.setMenuVisibility(true);
         }
-        else if(e.getSource() == checkout){
-            this.mainMenuVisibilities(false);
-        }
-        else if(e.getSource() == cartButton){
+        else if(e.getSource() == cartButton || e.getSource() == checkout){
+            cartText = "<html><body>";
+            cartPrices = "<html><body>";
+            for (int i = 0; i<cart.size(); i++){
+                cartText += cart.get(i).getName() + "<br><br>";
+                cartPrices += "$" + addZeroes(cart.get(i).getPrice()) + "<br><br>";
+            }
+            cartText += "TOTAL<html>";
+            cartPrices += "$" + addZeroes(cartCost) + "<html>";
+
+            if(cart.isEmpty()){
+                cartText = "Your cart is empty";
+            }
+    
+            cartNamesLabel.setText(cartText);
+            cartPricesLabel.setText(cartPrices);
+            
+            cartButton.setVisible(false);
+            cartNamesLabel.setVisible(true);
+            cartPricesLabel.setVisible(true);
             this.mainMenuVisibilities(false);
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
             drinksMenu.setMenuVisibility(false);
             dessertsMenu.setMenuVisibility(false);
+
+            if(e.getSource() == checkout && !cart.isEmpty()){
+                namer.setLocation((int) screenWidth/3/2-150, (int) screenHeight/2+275);
+                namer.setText("Please verify your name to continue");
+                namer.setVisible(true);
+            }
         }
         else if(e.getSource() == back){
             this.mainMenuVisibilities(true);
+            namer.setVisible(false);
+            cartButton.setVisible(true);
+            cartNamesLabel.setVisible(false);
+            cartPricesLabel.setVisible(false);
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
             drinksMenu.setMenuVisibility(false);
             dessertsMenu.setMenuVisibility(false);
         }
+        else if(e.getSource() == captchaButton){
+            int rand = (int) (Math.random() * (100-captchaCounter) + captchaCounter);
+            if (rand < 90|| captchaCounter == 0){
+                captchaCounter += 25;
+                captcha.setLocation((int) screenWidth/2/3+((int) (Math.random() * (-80 + 180) - 180)), (int) screenHeight/2+((int) (Math.random() * (265 + 180) -180)));
+                this.update();
+            }
+            else {
+                captchaComplete.getImage().flush();
+                captchaButton.setVisible(false);
+                captcha.setIcon(captchaComplete);
+                Timer gifTimer = new Timer(8000, (ActionEvent a) -> {
+                    captcha.setVisible(false);
+                    thanks.setVisible(true);
+                    again.setVisible(true);
+                    exit.setVisible(true);
+                });
+                gifTimer.start();
+            }
+        }
+        else if (e.getSource() == again){
+            Main.restart();
+            dispose();
+        }
+        else if (e.getSource() == exit){
+            dispose();
+        }
     }
 
-    public void mainMenuVisibilities(boolean visibility){
+    private String addZeroes(double number) {
+        String numString = Double.toString(number);
+        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
+            numString += "0";
+        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
+            numString = numString.substring(0, numString.indexOf(".") + 3);
+            
+        }
+        return numString;
+    }
+
+    public final void mainMenuVisibilities(boolean visibility){
         greetings.setVisible(visibility);
-        greetings.setText("Greetings and salutations, " + namer.getText() + "!");
+        greetings.setText("Greetings and salutations, " + name + "!");
         checkout.setVisible(visibility);
         back.setVisible(!visibility);
         entreesLabel.setVisible(visibility);
