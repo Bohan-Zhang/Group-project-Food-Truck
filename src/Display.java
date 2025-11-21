@@ -144,7 +144,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         //mains label and button setup
         mainsLabel = new JLabel("Mains", SwingConstants.CENTER);
         mainsButton = new JButton();
-        this.optionSetup(mainsLabel, mainsButton, 15, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        this.optionSetup(mainsLabel, mainsButton, 15, -100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/Mains Food.png")))));
         //drinks label and button setup
         drinksLabel = new JLabel("Drinks", SwingConstants.CENTER);
         drinksButton = new JButton();
