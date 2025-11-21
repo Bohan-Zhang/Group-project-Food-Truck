@@ -309,6 +309,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             dessertsMenu.setMenuVisibility(true);
         }
         else if(e.getSource() == checkout) {
+            if(cartButton.isVisible()) {
+                
+            }
             cartText = "<html><body>"; 
             cartPrices = "<html><body>";
             for (int i = 0; i<cart.size(); i++){
