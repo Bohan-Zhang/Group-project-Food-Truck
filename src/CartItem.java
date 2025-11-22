@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 public class CartItem extends JFrame implements ActionListener{
 
+    private final Toolkit toolkit = Toolkit.getDefaultToolkit();
+    private final Dimension screenSize = toolkit.getScreenSize();
+    final double screenWidth = screenSize.getWidth();
+    final double screenHeight = screenSize.getHeight();
+
     public static ArrayList<CartItem> cartItems = new ArrayList<>();
     private Food food;
     private JButton add = new JButton();
@@ -27,12 +32,24 @@ public class CartItem extends JFrame implements ActionListener{
     }
 
     public void setupButtons() {
+        add.setBounds(400, yPos, 50, 30);
+        add.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos, 63, 25);
+        add.setText("+");
+        add.addActionListener(this);
+        screen.add(add);
 
+        subtract.setBounds(460, yPos, 50, 30);
+        subtract.setText("-");
+        subtract.addActionListener(this);
+        screen.add(subtract);
     }
 
     @Override
-
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == add) {
+            food.addToCart();
+        } else if (e.getSource() == subtract) {
+            food.removeFromCart();
+        }
     }
 }
