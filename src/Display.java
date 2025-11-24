@@ -28,13 +28,15 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private String cartText;
     private String cartPrices;
     private int captchaCounter = 0;
+    private boolean minigameOn = false;
 
-    //Color or gif
+    //Other
     public final Color pastelPink = new Color(255, 200, 240);
     private final ImageIcon captchaComplete = new ImageIcon((Objects.requireNonNull(getClass().getResource("img/captchacomplete.gif"))));
+    Minigame minigame; 
 
     //creates components
-    private final JLayeredPane programLayer;
+    public final JLayeredPane programLayer;
     public final JLayeredPane phoneLayer;
     private final JLabel phone;
     private final JLabel restaurantName;
@@ -69,7 +71,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         this.setBounds(0, 0, (int)screenWidth/3, (int) screenHeight);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(pastelPink);
-        this.setUndecorated(false);
+        this.setFocusable(true);
         this.addKeyListener(this);
         this.setVisible(true);
 
@@ -238,13 +240,13 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             mainMenuVisibilities(true);
         }
 
-        this.addWindowStateListener((WindowEvent e) -> {
-            if ((e.getNewState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
-                phone.setLocation((int) screenWidth/3, 0);
-            } else if ((e.getOldState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
-                phone.setLocation(0, 0);
-            }
-        });
+        // this.addWindowStateListener((WindowEvent e) -> {
+        //     if ((e.getNewState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+        //         programLayer.setLocation((int) screenWidth/3, 0);
+        //     } else if ((e.getOldState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH) {
+        //         programLayer.setLocation(0, 0);
+        //     }
+        // });
     }
 
     public final void optionSetup(JLabel label, JButton button, int xOffset, int yOffset, ImageIcon img){
@@ -267,7 +269,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     public void keyTyped(KeyEvent e) {}
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && (!namer.getText().equals("Who might you be?") || !namer.getText().equalsIgnoreCase("Please verify your name to continue")) && (!nameSubmitted || namer.getText().equals(name))){
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && !namer.getText().equals("Who might you be?") && !namer.getText().equalsIgnoreCase("Please verify your name to continue") && (!nameSubmitted || namer.getText().equals(name))){
             if (!nameSubmitted){
                 namer.setVisible(false);
                 name = namer.getText();
@@ -283,6 +285,14 @@ public class Display extends JFrame implements KeyListener, ActionListener {
                 back.setVisible(false);
                 moneyLabel.setVisible(false);
                 captcha.setVisible(true);
+            }
+        }
+        if (minigameOn){
+            if(e.getKeyChar() == 'a' || e.getKeyChar() == 'A' || e.getKeyCode() == KeyEvent.VK_LEFT){
+                minigame.movePlayerLeft();
+            }
+            else if(e.getKeyChar() == 'd' || e.getKeyChar() == 'D' || e.getKeyCode() == KeyEvent.VK_RIGHT){
+                minigame.movePlayerRight();
             }
         }
     }
@@ -407,7 +417,10 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             dispose();
         }
         else if (e.getSource() == exit){
-            dispose();
+            phone.setVisible(false);
+            minigame = new Minigame(this);
+            minigameOn = true;
+            this.requestFocus();
         }
     }
 
