@@ -17,9 +17,12 @@ public class Obstacle extends JLabel{
     
     public Obstacle(Minigame minigame) {
         switch ((int)(Math.random()*(3)+1)){
-            case 1 -> x = 3/2-213;
-            case 2 -> x = (int)screenWidth/3/2-63;
-            case 3 -> x = (int)screenWidth/3/2+87;
+            case 1:
+                 x = 3/2-213;
+            case 2:
+                 x = (int)screenWidth/3/2-63;
+            case 3:
+                 x = (int)screenWidth/3/2+87;
         }
         this.setBounds(x,y,100,100);
         this.setOpaque(true);
@@ -37,9 +40,12 @@ public class Obstacle extends JLabel{
                 if (y >= (int)screenHeight+125 && !minigame.won) {
                     y = -125;
                     switch ((int)( Math.random()*(3)+1)){
-                        case 1 -> x = (int)screenWidth/3/2-213;
-                        case 2 -> x = (int)screenWidth/3/2-63;
-                        case 3 -> x = (int)screenWidth/3/2+87;
+                        case 1:
+                             x = (int)screenWidth/3/2-213;
+                        case 2:
+                             x = (int)screenWidth/3/2-63;
+                        case 3:
+                             x = (int)screenWidth/3/2+87;
                     }
                 }
                 this.setLocation(x,y);
