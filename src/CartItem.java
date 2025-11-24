@@ -33,7 +33,7 @@ public class CartItem extends JFrame implements ActionListener{
 
     public void setupButtons() {
         add.setBounds(400, yPos, 50, 30);
-        add.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos, 63, 25);
+        add.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos , 63, 25);
         add.setText("+");
         add.addActionListener(this);
         screen.add(add);
@@ -48,6 +48,7 @@ public class CartItem extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add) {
             food.addToCart();
+            
         } else if (e.getSource() == subtract) {
             food.removeFromCart();
         }
