@@ -25,8 +25,9 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //Vars
     public double cartCost = 0.0;
     public ArrayList<Food> cart = new ArrayList<>();
-    private String cartText;
-    private String cartPrices;
+    public int itemScrollY = 0;
+    //private String cartText;
+    //private String cartPrices;
     private int captchaCounter = 0;
 
     //Color or gif
@@ -215,7 +216,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         //desserts label and button setup
         dessertsLabel = new JLabel("Desserts", SwingConstants.CENTER);
         dessertsButton = new JButton();
-        this.optionSetup(dessertsLabel, dessertsButton, 15, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        this.optionSetup(dessertsLabel, dessertsButton, 15, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/StrawberryIceCream.png")))));
 
         EntreesFood entrees = new EntreesFood();
         entreesMenu = new Menu(entrees.chips, entrees.calamari, entrees.scallops, entrees.macNCheese, entrees.fries, entrees.frys, entrees.chickenNuggets, entrees.shrimp, this);
@@ -309,24 +310,27 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             dessertsMenu.setMenuVisibility(true);
         }
         else if(e.getSource() == checkout) {
-            if(cartButton.isVisible()) {
-                
-            }
-            cartText = "<html><body>"; 
-            cartPrices = "<html><body>";
-            for (int i = 0; i<cart.size(); i++){
-                cartText += cart.get(i).getName() + "<br><br>";
-                cartPrices += "$" + addZeroes(cart.get(i).getPrice()) + "<br><br>";
-            }
-            cartText += "TOTAL<html>";
-            cartPrices += "$" + addZeroes(cartCost) + "<html>";
 
-            if(cart.isEmpty()){
-                cartText = "Your cart is empty";
+
+            
+            //cartText = "<html><body>"; 
+            //cartPrices = "<html><body>";
+            for (int i = 0; i<cart.size(); i++){
+                
+
+                
+                
+
             }
+            //cartText += "TOTAL<html>";
+            //cartPrices += "$" + addZeroes(cartCost) + "<html>";
+
+            //if(cart.isEmpty()){
+            //    cartText = "Your cart is empty";
+            //}
     
-            cartNamesLabel.setText(cartText);
-            cartPricesLabel.setText(cartPrices);
+            //cartNamesLabel.setText(cartText);
+            //cartPricesLabel.setText(cartPrices);
             
             cartButton.setVisible(false);
             cartNamesLabel.setVisible(true);
@@ -344,21 +348,21 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             }
         } 
         else if (e.getSource() == cartButton) {
-            cartText = "<html><body>"; 
-            cartPrices = "<html><body>";
-            for (int i = 0; i<cart.size(); i++){
-                cartText += cart.get(i).getName() + "<br><br>";
-                cartPrices += "$" + addZeroes(cart.get(i).getPrice()) + "<br><br>";
-            }
-            cartText += "TOTAL<html>";
-            cartPrices += "$" + addZeroes(cartCost) + "<html>";
-
+            //cartText = "<html><body>"; 
+            //cartPrices = "<html><body>";
+            //for (int i = 0; i<cart.size(); i++){
+            //    cartText += cart.get(i).getName() + "<br><br>";
+            //    cartPrices += "$" + addZeroes(cart.get(i).getFood().getPrice()) + "<br><br>";
+            //}
+            //cartText += "TOTAL<html>";
+            //cartPrices += "$" + addZeroes(cartCost) + "<html>";
+//
             if(cart.isEmpty()){
-                cartText = "Your cart is empty";
+            //    cartText = "Your cart is empty";
             }
     
-            cartNamesLabel.setText(cartText);
-            cartPricesLabel.setText(cartPrices);
+            //cartNamesLabel.setText(cartText);
+            //cartPricesLabel.setText(cartPrices);
             
             cartButton.setVisible(false);
             cartNamesLabel.setVisible(true);

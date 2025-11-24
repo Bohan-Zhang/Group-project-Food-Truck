@@ -12,9 +12,10 @@ public class CartItem extends JFrame implements ActionListener{
     final double screenHeight = screenSize.getHeight();
 
     public static ArrayList<CartItem> cartItems = new ArrayList<>();
-    private Food food;
-    private JButton add = new JButton();
-    private JButton subtract = new JButton();
+    private final Food food;
+    private JLabel itemLabel = new JLabel();
+    private JButton addButton = new JButton();
+    private JButton subtractButton = new JButton();
     private Display screen;
     public int yPos;
 
@@ -23,33 +24,57 @@ public class CartItem extends JFrame implements ActionListener{
         screen = s;
         yPos = y;
         cartItems.add(this);
-        setupButtons();
+        setupGraphics();
+        setCartVisibility(false);
     }
 
     public void setCartVisibility(boolean visibility){
-        add.setVisible(visibility);
-        subtract.setVisible(visibility);
+        itemLabel.setVisible(visibility);
+        addButton.setVisible(visibility);
+        subtractButton.setVisible(visibility);
     }
 
-    public void setupButtons() {
-        add.setBounds(400, yPos, 50, 30);
-        add.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos , 63, 25);
-        add.setText("+");
-        add.addActionListener(this);
-        screen.add(add);
+    public void setupGraphics() {
 
-        subtract.setBounds(460, yPos, 50, 30);
-        subtract.setText("-");
-        subtract.addActionListener(this);
-        screen.add(subtract);
+        itemLabel.setBounds((int) screenWidth/3/2-150, (int) screenHeight/2 - yPos , 63, 25);
+        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + food.getInCart() * food.getPrice() + "<html>");
+        screen.phoneLayer.add(itemLabel, JLayeredPane.POPUP_LAYER);
+        
+        addButton.setBounds((int) screenWidth/3/2-80, (int) screenHeight/2 - yPos , 63, 25);
+        addButton.setText("+");
+        addButton.addActionListener(this);
+        screen.phoneLayer.add(addButton, JLayeredPane.POPUP_LAYER);
+
+        addButton.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos , 63, 25);
+        subtractButton.setText("-");
+        subtractButton.addActionListener(this);
+        screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
+
+
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public JLabel getItemLabel() {
+        return itemLabel;
+    }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public JButton getSubtractButton() {
+        return subtractButton;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == add) {
+        if (e.getSource() == addButton) {
             food.addToCart();
             
-        } else if (e.getSource() == subtract) {
+        } else if (e.getSource() == subtractButton) {
             food.removeFromCart();
         }
     }
