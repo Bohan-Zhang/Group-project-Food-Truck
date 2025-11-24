@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Objects;
+
 import javax.swing.*;
 
 @SuppressWarnings("LeakingThisInConstructor")
@@ -11,26 +13,17 @@ public class Obstacle extends JLabel{
 
     int y = -125;
     int x;
-    int pictureNo = 0;
     int frameCounter = 0;
     private static int noOfObstacles = 0;
     
     public Obstacle(Minigame minigame) {
         switch ((int)(Math.random()*(3)+1)){
-            case 1:
-                 x = 3/2-213;
-            case 2:
-                 x = (int)screenWidth/3/2-63;
-            case 3:
-                 x = (int)screenWidth/3/2+87;
+            case 1 -> x = (int)screenWidth/3/2-213;
+            case 2 -> x = (int)screenWidth/3/2-63;
+            case 3 -> x = (int)screenWidth/3/2+87;
         }
-        this.setBounds(x,y,100,100);
-        this.setOpaque(true);
-        this.setIcon(minigame.screen.cart.get(pictureNo).getImage());
-        pictureNo++;
-        if (pictureNo >= minigame.screen.cart.size()){
-            pictureNo = 0;
-        }
+        this.setBounds(x,y,125,125);
+        this.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/car.png")))));
         minigame.add(this, JLayeredPane.MODAL_LAYER);
         noOfObstacles++;
 
@@ -40,20 +33,12 @@ public class Obstacle extends JLabel{
                 if (y >= (int)screenHeight+125 && !minigame.won) {
                     y = -125;
                     switch ((int)( Math.random()*(3)+1)){
-                        case 1:
-                             x = (int)screenWidth/3/2-213;
-                        case 2:
-                             x = (int)screenWidth/3/2-63;
-                        case 3:
-                             x = (int)screenWidth/3/2+87;
+                        case 1 -> x = (int)screenWidth/3/2-213;
+                        case 2 -> x = (int)screenWidth/3/2-63;
+                        case 3 -> x = (int)screenWidth/3/2+87;
                     }
                 }
                 this.setLocation(x,y);
-                this.setIcon(minigame.screen.cart.get(pictureNo).getImage());
-                pictureNo++;
-                if (pictureNo >= minigame.screen.cart.size()){
-                    pictureNo = 0;
-                }
                 minigame.screen.update();
                 if (this.getBounds().intersects(minigame.player.getBounds())){
                     minigame.lost = true;
