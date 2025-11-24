@@ -26,8 +26,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     public double cartCost = 0.0;
     public ArrayList<Food> cart = new ArrayList<>();
     public int itemScrollY = 0;
-    //private String cartText;
-    //private String cartPrices;
+    
     private int captchaCounter = 0;
 
     //Color or gif
@@ -317,10 +316,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             //cartPrices = "<html><body>";
             for (int i = 0; i<cart.size(); i++){
                 
-
-                
-                
-
             }
             //cartText += "TOTAL<html>";
             //cartPrices += "$" + addZeroes(cartCost) + "<html>";

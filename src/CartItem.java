@@ -24,8 +24,8 @@ public class CartItem extends JFrame implements ActionListener{
         screen = s;
         yPos = y;
         cartItems.add(this);
-        setupGraphics();
-        setCartVisibility(false);
+
+        //setCartVisibility(false);
     }
 
     public void setCartVisibility(boolean visibility){
@@ -34,7 +34,7 @@ public class CartItem extends JFrame implements ActionListener{
         subtractButton.setVisible(visibility);
     }
 
-    public void setupGraphics() {
+    public void addToList() {
 
         itemLabel.setBounds((int) screenWidth/3/2-150, (int) screenHeight/2 - yPos , 63, 25);
         itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + food.getInCart() * food.getPrice() + "<html>");
@@ -49,9 +49,9 @@ public class CartItem extends JFrame implements ActionListener{
         subtractButton.setText("-");
         subtractButton.addActionListener(this);
         screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
-
-
     }
+
+    
 
     public Food getFood() {
         return food;
