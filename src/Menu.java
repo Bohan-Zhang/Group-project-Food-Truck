@@ -176,11 +176,17 @@ public class Menu implements ActionListener {
         if(source == add && item.getNumAvailable() > 0){
             item.addToCart();
             screen.cartCost += item.getPrice();
-            
+            if (item.getInCart() == 1) { // If this is the first of this item added to cart, create a new CartItem
+                screen.cart.add(item);
+            }
         }
         else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() >= 0){
             item.removeFromCart();     
-            screen.cartCost -= item.getPrice();       
+            screen.cartCost -= item.getPrice();
+            
+            if (item.getInCart() == 0) { // If this was the last of this item in the cart, remove the CartItem
+                screen.cart.remove(item);
+            }
             
         }
 

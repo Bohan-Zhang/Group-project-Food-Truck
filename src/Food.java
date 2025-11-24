@@ -48,6 +48,7 @@ public class Food {
         if (inCart < maxAvail && numAvailable > 0){
             inCart++;
             numAvailable--;
+            
         }
     }
     public void removeFromCart(){

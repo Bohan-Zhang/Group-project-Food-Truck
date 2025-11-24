@@ -12,46 +12,80 @@ public class CartItem extends JFrame implements ActionListener{
     final double screenHeight = screenSize.getHeight();
 
     public static ArrayList<CartItem> cartItems = new ArrayList<>();
+    public static int yPos = 0;
+    public static boolean cartVisible = false;
     private final Food food;
+    
     private JLabel itemLabel = new JLabel();
     private JButton addButton = new JButton();
     private JButton subtractButton = new JButton();
     private Display screen;
-    public int yPos;
+    
 
-    public CartItem(Food f, Display s, int y) {
+    public CartItem(Food f, Display s) {
         food = f;
         screen = s;
-        yPos = y;
         cartItems.add(this);
 
-        //setCartVisibility(false);
     }
 
-    public void setCartVisibility(boolean visibility){
-        itemLabel.setVisible(visibility);
-        addButton.setVisible(visibility);
-        subtractButton.setVisible(visibility);
+    public static void setCartVisibility(boolean visibility){
+        for (CartItem item : cartItems) {
+            item.itemLabel.setVisible(visibility);
+            item.addButton.setVisible(visibility);
+            item.subtractButton.setVisible(visibility);
+        }
     }
 
-    public void addToList() {
+    private String addZeroes(double number) {
+        String numString = Double.toString(number);
+        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
+            numString += "0";
+        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
+            numString = numString.substring(0, numString.indexOf(".") + 3);
+            
+        }
+        return numString;
+    }
 
-        itemLabel.setBounds((int) screenWidth/3/2-150, (int) screenHeight/2 - yPos , 63, 25);
-        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + food.getInCart() * food.getPrice() + "<html>");
+    public void addToScreen() {
+
+        updatePosition(yPos);
+
+        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + addZeroes(food.getInCart() * food.getPrice()) + "<html>");
         screen.phoneLayer.add(itemLabel, JLayeredPane.POPUP_LAYER);
         
-        addButton.setBounds((int) screenWidth/3/2-80, (int) screenHeight/2 - yPos , 63, 25);
         addButton.setText("+");
         addButton.addActionListener(this);
         screen.phoneLayer.add(addButton, JLayeredPane.POPUP_LAYER);
 
-        addButton.setBounds((int) screenWidth/3/2-50, (int) screenHeight/2 - yPos , 63, 25);
         subtractButton.setText("-");
         subtractButton.addActionListener(this);
         screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
+
+        //System.out.println("itemlabel visible?" + itemLabel.isVisible());
     }
 
-    
+    public void updatePosition(int y) {
+        yPos = y;
+        itemLabel.setBounds((int) screenWidth/3/2-130, yPos + cartItems.indexOf(this) * 40 + 250, 250, 25);
+        addButton.setBounds((int) screenWidth/3/2+47, yPos + cartItems.indexOf(this) * 40 + 250, 63, 25);
+        subtractButton.setBounds((int) screenWidth/3/2+110, yPos + cartItems.indexOf(this) * 40 + 250, 63, 25);
+    }
+
+    public static void updateAllPositions(int y) {
+        yPos = y;
+        for (CartItem item : cartItems) {
+            item.updatePosition(y);
+        }
+    }
+
+    public void removeFromList() {
+        screen.phoneLayer.remove(itemLabel);
+        screen.phoneLayer.remove(addButton);
+        screen.phoneLayer.remove(subtractButton);
+        cartItems.remove(this);
+    }
 
     public Food getFood() {
         return food;
@@ -71,6 +105,7 @@ public class CartItem extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        screen.update();
         if (e.getSource() == addButton) {
             food.addToCart();
             
