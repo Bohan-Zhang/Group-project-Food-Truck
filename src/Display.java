@@ -217,7 +217,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         //desserts label and button setup
         dessertsLabel = new JLabel("Desserts", SwingConstants.CENTER);
         dessertsButton = new JButton();
-        this.optionSetup(dessertsLabel, dessertsButton, 15, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/name.png")))));
+        this.optionSetup(dessertsLabel, dessertsButton, 15, 100, new ImageIcon((Objects.requireNonNull(getClass().getResource("img/ChocolateIceCream.png")))));
 
         EntreesFood entrees = new EntreesFood();
         entreesMenu = new Menu(entrees.chips, entrees.calamari, entrees.scallops, entrees.macNCheese, entrees.fries, entrees.frys, entrees.chickenNuggets, entrees.shrimp, this);
