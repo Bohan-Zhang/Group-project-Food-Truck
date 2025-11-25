@@ -69,15 +69,25 @@ public class Minigame extends JLayeredPane{
         Timer endTimer = new Timer(7000, (ActionEvent e) -> {
             if (!ended){
                 this.setVisible(false);
-                JLabel success = new JLabel("<html><body>You sucessfully obtained your food, and enjoyed it's delicate and exhuberant taste<html>", SwingConstants.CENTER);
+                JLabel success = new JLabel("<html><body>You sucessfully obtained your food, and enjoyed it's delicate and exhuberant taste<html>");
                 success.setForeground(new Color (255,255,255));
-                success.setBounds((int)screenWidth/3/2-150, (int) screenHeight/2, 300,50);
+                success.setBounds((int)screenWidth/3/2-140, (int) screenHeight/2, 300,50);
                 screen.add(success);
                 screen.getContentPane().setBackground(new Color(0,0,0));
                 ended = true;
             }
         });
         endTimer.start();
+    }
+
+    public void lose(){
+        lost = true;
+        this.setVisible(false);
+        JLabel fail = new JLabel("You never got your food...", SwingConstants.CENTER);
+        fail.setForeground(new Color (255,255,255));
+        fail.setBounds((int)screenWidth/3/2-150, (int) screenHeight/2, 300,50);
+        screen.add(fail);
+        screen.getContentPane().setBackground(new Color(150,0,0));
     }
 
 }
