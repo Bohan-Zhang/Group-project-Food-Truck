@@ -42,7 +42,7 @@ public class Obstacle extends JLabel{
                 }
                 this.setLocation(x,y);
                 minigame.screen.update();
-                if (frameCounter == 310 && !minigame.won){
+                if (frameCounter == 315 && !minigame.won){
                     new Obstacle(minigame);
                 }
                 frameCounter++;
