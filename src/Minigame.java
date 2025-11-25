@@ -35,7 +35,6 @@ public class Minigame extends JLayeredPane{
 
         chateau = new JLabel();
         chateau.setBounds((int)screenWidth/3/2-250,0,500,1000);
-        chateau.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Chateau.gif"))));
         chateau.setVisible(false);
         this.add(chateau, JLayeredPane.PALETTE_LAYER);
 
@@ -64,6 +63,7 @@ public class Minigame extends JLayeredPane{
 
     public void win(){
         chateau.setVisible(true);
+        chateau.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Chateau.gif"))));
         Timer endTimer = new Timer(7000, (ActionEvent e) -> {
             if (!ended){
                 this.setVisible(false);
