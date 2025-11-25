@@ -11,6 +11,7 @@ public class Obstacle extends JLabel{
     final double screenWidth = screenSize.getWidth();
     final double screenHeight = screenSize.getHeight();
 
+    private final int id;
     int y = -125;
     int x;
     int frameCounter = 0;
@@ -26,6 +27,7 @@ public class Obstacle extends JLabel{
         this.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/car.png")))));
         minigame.add(this, JLayeredPane.MODAL_LAYER);
         noOfObstacles++;
+        id = noOfObstacles;
 
         Timer moveTimer = new Timer(30, (ActionEvent e) -> {
             y+=20;
@@ -49,6 +51,9 @@ public class Obstacle extends JLabel{
                 frameCounter++;
                 if (noOfObstacles >= 5){
                     minigame.won = true;
+                }
+                if (id == 5 && y >= (int)screenHeight+125){
+                    minigame.win();
                 }
             }
         });

@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.Objects;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 @SuppressWarnings("LeakingThisInConstructor")
@@ -11,22 +13,31 @@ public class Minigame extends JLayeredPane{
     int x = (int)screenWidth/3/2-63;
     boolean lost = false;
     boolean won = false;
+    boolean ended = false;
 
     Display screen;
     JLabel street;
+    JLabel chateau;
     JLabel player;
 
     public Minigame(Display screen){
         this.screen = screen;
+        screen.getContentPane().setBackground(new Color(100,100,100));
+
 
         this.setBounds(0,0,(int)screenWidth/3,(int)screenHeight);
         screen.programLayer.add(this, JLayeredPane.PALETTE_LAYER);
 
         street = new JLabel();
-        street.setBounds(0,0,(int)screenWidth/3,(int)screenHeight);
-        street.setOpaque(true);
-        street.setBackground(new Color(0,0,0));
-        this.add(street, JLayeredPane.PALETTE_LAYER);
+        street.setBounds((int)screenWidth/3/2-250,0,500,1000);
+        street.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Road.gif")))));
+        this.add(street, JLayeredPane.DEFAULT_LAYER);
+
+        chateau = new JLabel();
+        chateau.setBounds((int)screenWidth/3/2-250,0,500,1000);
+        chateau.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Chateau.gif")))));
+        chateau.setVisible(false);
+        this.add(chateau, JLayeredPane.PALETTE_LAYER);
 
         player = new JLabel();
         player.setBounds(x,(int)screenHeight-200,125,125);
@@ -51,6 +62,22 @@ public class Minigame extends JLayeredPane{
             player.setLocation(x,(int)screenHeight-200);
             screen.update();
         }
+    }
+
+    public void win(){
+        chateau.setVisible(true);
+        Timer endTimer = new Timer(7000, (ActionEvent e) -> {
+            if (!ended){
+                this.setVisible(false);
+                JLabel success = new JLabel("<html><body>You sucessfully obtained your food, and enjoyed it's delicate and exhuberant taste<html>", SwingConstants.CENTER);
+                success.setForeground(new Color (255,255,255));
+                success.setBounds((int)screenWidth/3/2-150, (int) screenHeight/2, 300,50);
+                screen.add(success);
+                screen.getContentPane().setBackground(new Color(0,0,0));
+                ended = true;
+            }
+        });
+        endTimer.start();
     }
 
 }
