@@ -11,11 +11,12 @@ public class Obstacle extends JLabel{
     final double screenWidth = screenSize.getWidth();
     final double screenHeight = screenSize.getHeight();
 
-    private final int id;
     int y = -125;
     int x;
     int frameCounter = 0;
+    boolean over = false;
     private static int noOfObstacles = 0;
+    private final int id;
     
     public Obstacle(Minigame minigame) {
         switch ((int)(Math.random()*(3)+1)){
@@ -42,7 +43,7 @@ public class Obstacle extends JLabel{
                 }
                 this.setLocation(x,y);
                 minigame.screen.update();
-                if (frameCounter == 315 && !minigame.won){
+                if (frameCounter == 310 && !minigame.won){
                     new Obstacle(minigame);
                 }
                 frameCounter++;
@@ -54,7 +55,10 @@ public class Obstacle extends JLabel{
                     minigame.won = true;
                 }
                 if (id == 5 && y >= (int)screenHeight+125){
+                    if (!over){
                     minigame.win();
+                    over = true;
+                    }
                 }
             }
         });
