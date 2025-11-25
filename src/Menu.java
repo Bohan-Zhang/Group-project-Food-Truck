@@ -202,59 +202,59 @@ public class Menu implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == item1Name){
+        if (e.getSource() == item1Name || e.getSource() == add1){
             setDetails(item1, 1);
         }
-        else if(e.getSource() == add1 || e.getSource() == subtract1){
+        if(e.getSource() == add1 || e.getSource() == subtract1){
             changeCart(e.getSource(), add1, subtract1, item1, 1);
         }
 
-        else if (e.getSource() == item2Name){
+        if (e.getSource() == item2Name || e.getSource() == add2){
             setDetails(item2, 2);
         }
-        else if(e.getSource() == add2 || e.getSource() == subtract2){
+        if(e.getSource() == add2 || e.getSource() == subtract2){
             changeCart(e.getSource(), add2, subtract2, item2, 2);
         }
 
-        else if (e.getSource() == item3Name){
+        if (e.getSource() == item3Name || e.getSource() == add3){
             setDetails(item3,3);
         }
-        else if(e.getSource() == add3 || e.getSource() == subtract3){
+        if(e.getSource() == add3 || e.getSource() == subtract3){
             changeCart(e.getSource(), add3, subtract3, item3, 3);
         }
     
-        else if (e.getSource() == item4Name){
+        if (e.getSource() == item4Name || e.getSource() == add4){
             setDetails(item4,4);
         }
-        else if(e.getSource() == add4 || e.getSource() == subtract4){
+        if(e.getSource() == add4 || e.getSource() == subtract4){
             changeCart(e.getSource(), add4, subtract4, item4, 4);
         }
 
-        else if (e.getSource() == item5Name){
+        if (e.getSource() == item5Name || e.getSource() == add5){
             setDetails(item5,5);
         }
-        else if(e.getSource() == add5 || e.getSource() == subtract5){
+        if(e.getSource() == add5 || e.getSource() == subtract5){
             changeCart(e.getSource(), add5, subtract5, item5, 5);
         }
         
-        else if (e.getSource() == item6Name){
+        if (e.getSource() == item6Name || e.getSource() == add6){
             setDetails(item6,6);
         }
-        else if(e.getSource() == add6 || e.getSource() == subtract6){
+        if(e.getSource() == add6 || e.getSource() == subtract6){
             changeCart(e.getSource(), add6, subtract6, item6, 6);
         }
        
-        else if (e.getSource() == item7Name){
+        if (e.getSource() == item7Name || e.getSource() == add7){
             setDetails(item7,7);
         }
-        else if(e.getSource() == add7 || e.getSource() == subtract7){
+        if(e.getSource() == add7 || e.getSource() == subtract7){
             changeCart(e.getSource(), add7, subtract7, item7, 7);
         }
 
-        else if (e.getSource() == item8Name){
+        if (e.getSource() == item8Name || e.getSource() == add8){
             setDetails(item8,8);
         }
-        else if(e.getSource() == add8 || e.getSource() == subtract8){
+        if(e.getSource() == add8 || e.getSource() == subtract8){
             changeCart(e.getSource(), add8, subtract8, item8, 8);
         }
     }
