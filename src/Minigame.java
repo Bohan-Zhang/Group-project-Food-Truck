@@ -30,19 +30,17 @@ public class Minigame extends JLayeredPane{
 
         street = new JLabel();
         street.setBounds((int)screenWidth/3/2-250,0,500,1000);
-        street.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Road.gif")))));
+        street.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Road.gif"))));
         this.add(street, JLayeredPane.DEFAULT_LAYER);
 
         chateau = new JLabel();
         chateau.setBounds((int)screenWidth/3/2-250,0,500,1000);
-        chateau.setIcon((new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Chateau.gif")))));
+        chateau.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Chateau.gif"))));
         chateau.setVisible(false);
         this.add(chateau, JLayeredPane.PALETTE_LAYER);
 
-        player = new JLabel();
+        player = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("/img/Player.png"))));
         player.setBounds(x,(int)screenHeight-200,125,125);
-        player.setOpaque(true);
-        player.setBackground(new Color(0,255,0));
         this.add(player, JLayeredPane.MODAL_LAYER);
 
         new Obstacle(this);
