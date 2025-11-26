@@ -276,17 +276,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
     public void updateCheckout() {
 
-        this.requestFocusInWindow(); // Lets the key listener work after submitting name
         isOpeningCart = true;
+        CartItem.updateDisplayedCart(); // Makes it the display on the appropriate page and appropriate range
 
         for (int i = 0; i <= cart.size() - 1; i++) {
-
-            CartItem.updateDisplayedCart();
+    
             CartItem item = new CartItem(cart.get(i), this);
 
-            System.out.println("Added " + item.getFood().getName() + " to cart display with quantity " + item.getFood().getInCart());
+            //System.out.println("Added " + item.getFood().getName() + " to cart display with quantity " + item.getFood().getInCart());
 
-            if ((item.getFood().getInCart() == 0)) { // && !CartItem.displayedCart.contains(item)
+            if ((item.getFood().getInCart() == 0)) { //
+                System.out.println("Display 289 Removing from cart through " + item.getFood().getName());
                 item.removeFromScreen();
             } else {
                 item.addToScreen();
@@ -295,16 +295,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         } 
         
         CartItem.updateDisplayedCart();
+        updateTotal();
 
         if (CartItem.allInCart.isEmpty()) {
-            checkout.setVisible(true);
-        } else {
             checkout.setVisible(false);
+        } else {
+            checkout.setVisible(true);
         }
 
-        System.out.println("C_Food Cart contains:" + cart);
-        System.out.println("C_all in Cart contains:" + CartItem.allInCart);
-        System.out.println("C_displayed Cart contains:" + CartItem.displayedCart);
+        System.out.println("Display306:Food Cart contains:" + cart);
+        System.out.println("Display307:all in Cart contains:" + CartItem.allInCart);
+        System.out.println("Display308:displayed Cart contains:" + CartItem.displayedCart);
 
     }
 
@@ -315,10 +316,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         }
         totalLabel.setText("<html><body>Total: $" + Main.addZeroes(cartCost) + "<html>");
         update();
-
-        System.out.println("Food Cart contains:" + cart);
-        System.out.println("all in Cart contains:" + CartItem.allInCart);
-        System.out.println("displayed Cart contains:" + CartItem.displayedCart);
+        
     }
 
     //keyboard actions
@@ -407,6 +405,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         } 
         else if (e.getSource() == cartButton) {
             isOpeningCart = true;
+            System.out.println("Display411:Opening cart");
             updateCheckout();
             
             cartButton.setVisible(false);

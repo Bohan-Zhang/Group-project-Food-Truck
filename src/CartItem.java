@@ -20,15 +20,11 @@ public class CartItem extends JFrame implements ActionListener{
     private JLabel itemLabel = new JLabel();
     private JButton addButton = new JButton();
     private JButton subtractButton = new JButton();
-    private Display screen;
+    private static Display screen;
 
     public CartItem(Food f, Display s) {
         food = f;
         screen = s;
-        if (!allInCart.contains(this)) {
-            System.out.println(this + " this");
-            allInCart.add(this);
-        }
         
     }
 
@@ -43,8 +39,8 @@ public class CartItem extends JFrame implements ActionListener{
     public void addToScreen() {
 
         updateText();
-        System.out.println("Food: " + food.getName() + " Index:" + displayedCart.indexOf(this) + " allInCart: " + displayedCart);
-
+        System.out.println("CartItem 43: Food: " + food.getName() + " Index:" + displayedCart.indexOf(this) + " allInCart: " + displayedCart);
+        
         itemLabel.setBounds((int) screenWidth/3/2-150, displayedCart.indexOf(this) * 40 + 250, 300, 25);
         screen.phoneLayer.add(itemLabel, JLayeredPane.POPUP_LAYER);
         
@@ -56,6 +52,10 @@ public class CartItem extends JFrame implements ActionListener{
         subtractButton.addActionListener(this);
         screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
 
+        if (!allInCart.contains(this)) {
+            System.out.println("CartItem57:this" + this);
+            allInCart.add(this);
+        }
         //System.out.println("itemlabel visible?" + itemLabel.isVisible());
     }
 
@@ -65,15 +65,17 @@ public class CartItem extends JFrame implements ActionListener{
         screen.phoneLayer.remove(subtractButton);
         allInCart.remove(this);
         displayedCart.remove(this);
+        System.out.println("CartItem69:Removed " + this + " from screen");
     }
 
     public static void updateDisplayedCart() {
 
+
         displayedCart.clear();
         
         int startIndex = (pageNum - 1) * 11;
-        int endIndex = Math.min(startIndex + 11, allInCart.size());
-        System.out.println("startIndex: " + startIndex + " endIndex: " + endIndex);
+        int endIndex = Math.min(startIndex + 11, screen.cart.size());
+        System.out.println("CartItem78:startIndex: " + startIndex + " endIndex: " + endIndex);
         for (int i = startIndex; i < endIndex; i++) {
             
             if (!displayedCart.contains(allInCart.get(i))) {
@@ -132,9 +134,12 @@ public class CartItem extends JFrame implements ActionListener{
                 screen.cart.add(food);
             }
             food.addToCart();
-            screen.updateTotal();
+            
+            screen.updateCheckout();
             updateText();
-            System.out.println("Adding to cart through cart: " + food.getName());
+
+
+            System.out.println("CartItem142:Adding to cart through cart: " + food.getName());
             
             
         } else if (e.getSource() == subtractButton) {
@@ -142,10 +147,13 @@ public class CartItem extends JFrame implements ActionListener{
             if (food.getInCart() == 1) { // If this was the last of this item in the cart, remove the CartItem
                 screen.cart.remove(food);
             }
-            food.removeFromCart();     
-            screen.updateTotal();
+            food.removeFromCart();  
+
+            screen.updateCheckout();
             updateText();
-            System.out.println("Removing from cart through cart: " + food.getName());
+
+
+            System.out.println("CartItem156:Removing from cart through cart: " + food.getName());
         }
     }
 

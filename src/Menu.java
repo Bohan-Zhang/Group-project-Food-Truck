@@ -181,7 +181,7 @@ public class Menu implements ActionListener {
             }
             item.addToCart();
             screen.updateTotal();
-            System.out.println("Adding to cart through menu: " + item.getName());
+            System.out.println("Menu184:Adding to cart through menu: " + item.getName());
             
             
         }
@@ -192,7 +192,7 @@ public class Menu implements ActionListener {
             }
             item.removeFromCart();     
             screen.updateTotal();
-            System.out.println("Removing from cart through menu: " + item.getName());
+            System.out.println("Menu195:Removing from cart through menu: " + item.getName());
             
         }
 
