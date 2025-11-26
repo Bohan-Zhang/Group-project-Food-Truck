@@ -25,8 +25,8 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //Vars
     public double cartCost = 0.0;
     public ArrayList<Food> cart = new ArrayList<>();
-    private int itemScrollY = 0;
     private boolean isOpeningCart = false;
+
 
     private int captchaCounter = 0;
 
@@ -41,18 +41,21 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final JLabel restaurantName;
     private final JTextField namer;
     private final JLabel greetings;
-    public final JLabel moneyLabel;
+    public final JLabel totalLabel;
     private final JButton checkout;
     private final JButton back;
     private final JButton cartButton;
     private final JLabel cartNamesLabel;
-    private final JLabel cartPricesLabel;
+
     private final JLabel captcha;
     private final JButton captchaButton;
     private final JLabel thanks;
     private final JButton again;
     private final JButton exit;
 
+    private final JButton previousPageButton;
+    private final JButton nextPageButton;
+     
     //creates menu components
     private final JLabel entreesLabel;
     private final JButton entreesButton;
@@ -142,18 +145,11 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         cartNamesLabel.setVerticalAlignment(SwingConstants.TOP);
         phoneLayer.add(cartNamesLabel, JLayeredPane.MODAL_LAYER);
 
-        cartPricesLabel = new JLabel();
-        cartPricesLabel.setBounds((int)screenWidth/3/2+100, (int)screenHeight/2-160, 50, 500);
-        cartPricesLabel.setVisible(false);
-        cartPricesLabel.setVerticalAlignment(SwingConstants.TOP);
-        cartPricesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        phoneLayer.add(cartPricesLabel, JLayeredPane.MODAL_LAYER);
-
         //money setup
-        moneyLabel = new JLabel("<html><body>Cart: $0.00<html>");
-        moneyLabel.setBounds((int) screenWidth/3/2-70, (int) screenHeight/3-180, 100, 25);
-        moneyLabel.setVisible(false);
-        phoneLayer.add(moneyLabel, JLayeredPane.DRAG_LAYER);
+        totalLabel = new JLabel("<html><body>Total: $0.00<html>");
+        totalLabel.setBounds((int) screenWidth/3/2-70, (int) screenHeight/3-180, 100, 25);
+        totalLabel.setVisible(false);
+        phoneLayer.add(totalLabel, JLayeredPane.DRAG_LAYER);
 
         //checkout button setup
         checkout = new JButton("Come 'n get it!");
@@ -170,6 +166,20 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         back.addActionListener(this);
         back.setVisible(false);
         phoneLayer.add(back, JLayeredPane.POPUP_LAYER);
+
+        //Previous page
+        previousPageButton = new JButton("< Previous Page");
+        previousPageButton.setBounds((int) screenWidth/3/2 - 150, 600, 150, 25);
+        previousPageButton.setVisible(false);
+        previousPageButton.addActionListener(this);
+        phoneLayer.add(previousPageButton, JLayeredPane.POPUP_LAYER);        
+        
+        //Next page
+        nextPageButton = new JButton("Next Page >");
+        nextPageButton.setBounds((int) screenWidth/3/2 + 125, 600, 150, 25);
+        nextPageButton.setVisible(false);
+        nextPageButton.addActionListener(this);
+        phoneLayer.add(previousPageButton, JLayeredPane.POPUP_LAYER);
 
         //captcha setup for later
         captcha = new JLabel(new ImageIcon((Objects.requireNonNull(getClass().getResource("img/captcha.png")))));
@@ -236,7 +246,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         if (nameSubmitted){
             namer.setVisible(false);
-            moneyLabel.setVisible(true);
+            totalLabel.setVisible(true);
             cartButton.setVisible(true);
             mainMenuVisibilities(true);
         }
@@ -268,25 +278,48 @@ public class Display extends JFrame implements KeyListener, ActionListener {
 
         this.requestFocusInWindow(); // Lets the key listener work after submitting name
         isOpeningCart = true;
-        //CartItem.cartItems.clear();
 
         for (int i = 0; i <= cart.size() - 1; i++) {
+
+            CartItem.updateDisplayedCart();
             CartItem item = new CartItem(cart.get(i), this);
-            CartItem.cartItems.add(item);
-            item.updatePosition(itemScrollY);
 
             System.out.println("Added " + item.getFood().getName() + " to cart display with quantity " + item.getFood().getInCart());
 
-            if ((item.getFood().getInCart() == 0)) { // && !CartItem.cartItems.contains(item)
-                item.removeFromList();
+            if ((item.getFood().getInCart() == 0)) { // && !CartItem.displayedCart.contains(item)
+                item.removeFromScreen();
             } else {
                 item.addToScreen();
             }
 
         } 
+        
+        CartItem.updateDisplayedCart();
+
+        if (CartItem.allInCart.isEmpty()) {
+            checkout.setVisible(true);
+        } else {
+            checkout.setVisible(false);
+        }
+
+        System.out.println("C_Food Cart contains:" + cart);
+        System.out.println("C_all in Cart contains:" + CartItem.allInCart);
+        System.out.println("C_displayed Cart contains:" + CartItem.displayedCart);
 
     }
 
+    public void updateTotal() {
+        cartCost = 0.0;
+        for (Food food : cart) {
+            cartCost += food.getPrice() * food.getInCart();
+        }
+        totalLabel.setText("<html><body>Total: $" + Main.addZeroes(cartCost) + "<html>");
+        update();
+
+        System.out.println("Food Cart contains:" + cart);
+        System.out.println("all in Cart contains:" + CartItem.allInCart);
+        System.out.println("displayed Cart contains:" + CartItem.displayedCart);
+    }
 
     //keyboard actions
     @Override
@@ -299,7 +332,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             if (!nameSubmitted){
                 namer.setVisible(false);
                 name = namer.getText();
-                moneyLabel.setVisible(true);
+                totalLabel.setVisible(true);
                 cartButton.setVisible(true);
                 this.mainMenuVisibilities(true);
                 nameSubmitted = true; 
@@ -307,39 +340,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             else{
                 namer.setVisible(false);
                 cartNamesLabel.setVisible(false);
-                cartPricesLabel.setVisible(false);
                 back.setVisible(false);
-                moneyLabel.setVisible(false);
+                totalLabel.setVisible(false);
                 captcha.setVisible(true);
             }
             
-        }
-        if (isOpeningCart) {
-            
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                System.out.println("Up key pressed");
-                itemScrollY += 10; 
-                if (itemScrollY >= screenHeight - 50) {
-                    itemScrollY = screenHeight - 50;
-                }
-                CartItem.updateAllPositions(itemScrollY);
-            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                System.out.println("Down key pressed");
-                
-                itemScrollY -= 10;
-                if (itemScrollY <= 0) {
-                    itemScrollY = 0;
-                }
-                CartItem.updateAllPositions(itemScrollY);
-            }
-            System.out.println("itemScrollY: " + itemScrollY);
-            System.out.println("cart: " + cart);
-            System.out.println("cartitems: " + CartItem.cartItems);
-        }        
+        }      
         
         update();
     
     }
+
     @Override
     public void keyReleased(KeyEvent e) {}
 
@@ -381,7 +392,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             
             cartButton.setVisible(false);
             cartNamesLabel.setVisible(true);
-            cartPricesLabel.setVisible(true);
+
             this.mainMenuVisibilities(false);
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
@@ -400,7 +411,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             
             cartButton.setVisible(false);
             cartNamesLabel.setVisible(true);
-            cartPricesLabel.setVisible(true);
+
             this.mainMenuVisibilities(false);
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
@@ -412,12 +423,14 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         else if(e.getSource() == back){
 
             isOpeningCart = false;
+            CartItem.setCartVisibility(false);
+            CartItem.displayedCart.clear();
             cartNamesLabel.setVisible(false);
             this.mainMenuVisibilities(true);
             namer.setVisible(false);
             cartButton.setVisible(true);
             cartNamesLabel.setVisible(false);
-            cartPricesLabel.setVisible(false);
+
             entreesMenu.setMenuVisibility(false);
             mainsMenu.setMenuVisibility(false);
             drinksMenu.setMenuVisibility(false);

@@ -10,9 +10,10 @@ public class CartItem extends JFrame implements ActionListener{
     private final Dimension screenSize = toolkit.getScreenSize();
     final double screenWidth = screenSize.getWidth();
     final double screenHeight = screenSize.getHeight();
+    private static int pageNum = 1;
 
-    public static ArrayList<CartItem> cartItems = new ArrayList<>();
-    public static int yPos = 0;
+    public static ArrayList<CartItem> allInCart = new ArrayList<>();
+    public static ArrayList<CartItem> displayedCart = new ArrayList<>();
     public static boolean cartVisible = false;
     private final Food food;
     
@@ -20,73 +21,75 @@ public class CartItem extends JFrame implements ActionListener{
     private JButton addButton = new JButton();
     private JButton subtractButton = new JButton();
     private Display screen;
-    
 
     public CartItem(Food f, Display s) {
         food = f;
         screen = s;
-        cartItems.add(this);
-
+        if (!allInCart.contains(this)) {
+            System.out.println(this + " this");
+            allInCart.add(this);
+        }
+        
     }
 
     public static void setCartVisibility(boolean visibility){
-        for (CartItem item : cartItems) {
+        for (CartItem item : allInCart) {
             item.itemLabel.setVisible(visibility);
             item.addButton.setVisible(visibility);
             item.subtractButton.setVisible(visibility);
         }
     }
 
-    private String addZeroes(double number) {
-        String numString = Double.toString(number);
-        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
-            numString += "0";
-        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
-            numString = numString.substring(0, numString.indexOf(".") + 3);
-            
-        }
-        return numString;
-    }
-
     public void addToScreen() {
 
-        updatePosition(yPos);
+        updateText();
+        System.out.println("Food: " + food.getName() + " Index:" + displayedCart.indexOf(this) + " allInCart: " + displayedCart);
 
-        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + addZeroes(food.getInCart() * food.getPrice()) + "<html>");
+        itemLabel.setBounds((int) screenWidth/3/2-150, displayedCart.indexOf(this) * 40 + 250, 300, 25);
         screen.phoneLayer.add(itemLabel, JLayeredPane.POPUP_LAYER);
         
-        addButton.setText("+");
+        addButton.setBounds((int) screenWidth/3/2-150, displayedCart.indexOf(this) * 40 + 270, 63, 25);
         addButton.addActionListener(this);
         screen.phoneLayer.add(addButton, JLayeredPane.POPUP_LAYER);
 
-        subtractButton.setText("-");
+        subtractButton.setBounds((int) screenWidth/3/2-87, displayedCart.indexOf(this) * 40 + 270, 63, 25);
         subtractButton.addActionListener(this);
         screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
 
         //System.out.println("itemlabel visible?" + itemLabel.isVisible());
     }
 
-    public void updatePosition(int y) {
-        yPos = y;
-        itemLabel.setBounds((int) screenWidth/3/2-130, yPos + cartItems.indexOf(this) * 40 + 250, 250, 25);
-        addButton.setBounds((int) screenWidth/3/2+47, yPos + cartItems.indexOf(this) * 40 + 250, 63, 25);
-        subtractButton.setBounds((int) screenWidth/3/2+110, yPos + cartItems.indexOf(this) * 40 + 250, 63, 25);
-    }
-
-    public static void updateAllPositions(int y) {
-        yPos = y;
-        for (CartItem item : cartItems) {
-            item.updatePosition(y);
-        }
-    }
-
-    public void removeFromList() {
+    public void removeFromScreen() {
         screen.phoneLayer.remove(itemLabel);
         screen.phoneLayer.remove(addButton);
         screen.phoneLayer.remove(subtractButton);
-        cartItems.remove(this);
+        allInCart.remove(this);
+        displayedCart.remove(this);
     }
 
+    public static void updateDisplayedCart() {
+
+        displayedCart.clear();
+        
+        int startIndex = (pageNum - 1) * 11;
+        int endIndex = Math.min(startIndex + 11, allInCart.size());
+        System.out.println("startIndex: " + startIndex + " endIndex: " + endIndex);
+        for (int i = startIndex; i < endIndex; i++) {
+            
+            if (!displayedCart.contains(allInCart.get(i))) {
+                displayedCart.add(allInCart.get(i));
+            }
+            
+        }
+    }
+
+    public void updateText() {
+        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + Main.addZeroes(food.getInCart() * food.getPrice()) + "<html>");
+        addButton.setText("+");
+        subtractButton.setText("-");
+    }
+
+    
     public Food getFood() {
         return food;
     }
@@ -103,14 +106,52 @@ public class CartItem extends JFrame implements ActionListener{
         return subtractButton;
     }
 
+    public void nextPage() {
+        if (pageNum * 11 >= allInCart.size()) {
+            return;
+        }
+        pageNum ++;
+
+    }
+
+    public void previousPage() {
+        if (pageNum == 1) {
+            return;
+        }
+        pageNum --;
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         screen.update();
         if (e.getSource() == addButton) {
+
+            if (food.getInCart() == 0) { // If this is the first of this item added to cart, create a new CartItem
+                screen.cart.add(food);
+            }
             food.addToCart();
+            screen.updateTotal();
+            updateText();
+            System.out.println("Adding to cart through cart: " + food.getName());
+            
             
         } else if (e.getSource() == subtractButton) {
-            food.removeFromCart();
+
+            if (food.getInCart() == 1) { // If this was the last of this item in the cart, remove the CartItem
+                screen.cart.remove(food);
+            }
+            food.removeFromCart();     
+            screen.updateTotal();
+            updateText();
+            System.out.println("Removing from cart through cart: " + food.getName());
         }
     }
+
+    @Override
+    public String toString() {
+        return food.getName() + " x" + food.getInCart();
+    }
+
 }

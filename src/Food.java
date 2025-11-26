@@ -48,7 +48,6 @@ public class Food {
         if (inCart < maxAvail && numAvailable > 0){
             inCart++;
             numAvailable--;
-            
         }
     }
     public void removeFromCart(){
@@ -62,7 +61,11 @@ public class Food {
         numAvailable = num;
     }
 
-    
+    @Override
+
+    public String toString() {
+        return name + " x" + inCart;
+    }
 
     
 }

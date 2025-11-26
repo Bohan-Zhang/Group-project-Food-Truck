@@ -163,7 +163,7 @@ public class Menu implements ActionListener {
     public void setDetails(Food item, int current){
         pictureBG.setIcon(new ImageIcon((getClass().getResource("img/FoodBG.png"))));
         picture.setIcon(item.getImage()); //change to food img
-        cost.setText("$" + addZeroes(item.getPrice()));
+        cost.setText("$" + Main.addZeroes(item.getPrice()));
         calories.setText(item.getCalories() + " calories");
         inStock.setText(item.getNumAvailable() + " in stock");
         inCart.setText(item.getInCart() + " in your cart");
@@ -172,39 +172,34 @@ public class Menu implements ActionListener {
         screen.update();
     }
 
-    public void changeCart(Object source, JButton add, JButton subtract, Food item, int current){
+    private void changeCart(Object source, JButton add, JButton subtract, Food item, int current){
         if(source == add && item.getNumAvailable() > 0){
-            item.addToCart();
-            screen.cartCost += item.getPrice();
-            if (item.getInCart() == 1) { // If this is the first of this item added to cart, create a new CartItem
+            
+
+            if (item.getInCart() == 0) { // If this is the first of this item added to cart, create a new CartItem
                 screen.cart.add(item);
             }
+            item.addToCart();
+            screen.updateTotal();
+            System.out.println("Adding to cart through menu: " + item.getName());
+            
+            
         }
         else if (source == subtract && item.getInCart() > 0 && screen.cartCost - item.getPrice() >= 0){
-            item.removeFromCart();     
-            screen.cartCost -= item.getPrice();
             
-            if (item.getInCart() == 0) { // If this was the last of this item in the cart, remove the CartItem
+            if (item.getInCart() == 1) { // If this was the last of this item in the cart, remove the CartItem
                 screen.cart.remove(item);
             }
+            item.removeFromCart();     
+            screen.updateTotal();
+            System.out.println("Removing from cart through menu: " + item.getName());
             
         }
 
-        screen.moneyLabel.setText("<html><body>Cart: $" + addZeroes(screen.cartCost)+ "<html>");
+        screen.totalLabel.setText("<html><body>Cart: $" + Main.addZeroes(screen.cartCost)+ "<html>");
         if (currentDetails == current){
             setDetails(item, current);
         }
-    }
-
-    private String addZeroes(double number) {
-        String numString = Double.toString(number);
-        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
-            numString += "0";
-        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
-            numString = numString.substring(0, numString.indexOf(".") + 3);
-            
-        }
-        return numString;
     }
 
     @Override
