@@ -56,8 +56,8 @@ public class Obstacle extends JLabel{
                 }
                 if (id == 5 && y >= (int)screenHeight+125){
                     if (!over){
-                    minigame.win();
-                    over = true;
+                        minigame.win();
+                        over = true;
                     }
                 }
             }
