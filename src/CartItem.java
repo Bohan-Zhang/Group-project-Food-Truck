@@ -12,45 +12,52 @@ public class CartItem extends JFrame implements ActionListener{
     final double screenHeight = screenSize.getHeight();
     private static int pageNum = 1;
 
+    public static ArrayList<CartItem> cartItems = new ArrayList<>();
     public static ArrayList<CartItem> allInCart = new ArrayList<>();
     public static ArrayList<CartItem> displayedCart = new ArrayList<>();
     public static boolean cartVisible = false;
     private final Food food;
-    
     private JLabel itemLabel = new JLabel();
     private JButton addButton = new JButton();
     private JButton subtractButton = new JButton();
-    private static Display screen;
+    private Display screen;
+    public int yPos;
 
     public CartItem(Food f, Display s) {
         food = f;
         screen = s;
-        
+
+        cartItems.add(this);
+
+        //setCartVisibility(false);
     }
 
     public static void setCartVisibility(boolean visibility){
-        for (CartItem item : allInCart) {
-            item.itemLabel.setVisible(visibility);
-            item.addButton.setVisible(visibility);
-            item.subtractButton.setVisible(visibility);
+        for (CartItem ci : cartItems) {
+            ci.itemLabel.setVisible(visibility);
+            ci.addButton.setVisible(visibility);
+            ci.subtractButton.setVisible(visibility);
         }
+        
     }
 
     public void addToScreen() {
 
-        updateText();
-        System.out.println("CartItem 43: Food: " + food.getName() + " Index:" + displayedCart.indexOf(this) + " allInCart: " + displayedCart);
-        
-        itemLabel.setBounds((int) screenWidth/3/2-150, displayedCart.indexOf(this) * 40 + 250, 300, 25);
+        itemLabel.setBounds((int) screenWidth/3/2-150, cartItems.indexOf(this) * 40 + 270, 63, 25);
+        itemLabel.setText("<html>" + food.getName() + " quantity: " + food.getInCart() + ", Spent $" + food.getInCart() * food.getPrice() + "<html>");
         screen.phoneLayer.add(itemLabel, JLayeredPane.POPUP_LAYER);
         
-        addButton.setBounds((int) screenWidth/3/2-150, displayedCart.indexOf(this) * 40 + 270, 63, 25);
+        addButton.setBounds((int) screenWidth/3/2-150, cartItems.indexOf(this) * 40 + 270, 63, 25);
         addButton.addActionListener(this);
         screen.phoneLayer.add(addButton, JLayeredPane.POPUP_LAYER);
 
-        subtractButton.setBounds((int) screenWidth/3/2-87, displayedCart.indexOf(this) * 40 + 270, 63, 25);
+        subtractButton.setBounds((int) screenWidth/3/2-87, cartItems.indexOf(this) * 40 + 270, 63, 25);
         subtractButton.addActionListener(this);
         screen.phoneLayer.add(subtractButton, JLayeredPane.POPUP_LAYER);
+    
+
+    
+
 
         if (!allInCart.contains(this)) {
             System.out.println("CartItem57:this" + this);
@@ -74,7 +81,7 @@ public class CartItem extends JFrame implements ActionListener{
         displayedCart.clear();
         
         int startIndex = (pageNum - 1) * 11;
-        int endIndex = Math.min(startIndex + 11, screen.cart.size());
+        int endIndex = Math.min(startIndex + 11, allInCart.size());
         System.out.println("CartItem78:startIndex: " + startIndex + " endIndex: " + endIndex);
         for (int i = startIndex; i < endIndex; i++) {
             

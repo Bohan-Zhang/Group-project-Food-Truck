@@ -9,8 +9,8 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //allows access to screen's dimension, creates screen width and height vars as doubles
     private final Toolkit toolkit = Toolkit.getDefaultToolkit();
     private final Dimension screenSize = toolkit.getScreenSize();
-    public final int screenWidth = (int)screenSize.getWidth();
-    public final int screenHeight = (int)screenSize.getHeight();
+    public final double screenWidth = screenSize.getWidth();
+    public final double screenHeight = screenSize.getHeight();
 
     //menus
     private final Menu entreesMenu;
@@ -138,7 +138,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         cartButton.addActionListener(this);
         cartButton.setVisible(false);
         phoneLayer.add(cartButton, JLayeredPane.POPUP_LAYER);
-
         cartNamesLabel = new JLabel();
         cartNamesLabel.setBounds((int)screenWidth/3/2-150, (int)screenHeight/2-160, 350, 500);
         cartNamesLabel.setVisible(false);
@@ -322,18 +321,16 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     //keyboard actions
     @Override
     public void keyTyped(KeyEvent e) {}
-
     @Override
     public void keyPressed(KeyEvent e) {
-
-        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && (!namer.getText().equals("Who might you be?") || !namer.getText().equalsIgnoreCase("Please verify your name to continue")) && (!nameSubmitted || namer.getText().equals(name))) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && !namer.getText().isEmpty() && (!namer.getText().equals("Who might you be?") || !namer.getText().equalsIgnoreCase("Please verify your name to continue")) && (!nameSubmitted || namer.getText().equals(name))){
             if (!nameSubmitted){
                 namer.setVisible(false);
                 name = namer.getText();
                 totalLabel.setVisible(true);
                 cartButton.setVisible(true);
                 this.mainMenuVisibilities(true);
-                nameSubmitted = true; 
+                nameSubmitted = true;
             }
             else{
                 namer.setVisible(false);
@@ -371,11 +368,15 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             this.mainMenuVisibilities(false);
             dessertsMenu.setMenuVisibility(true);
         }
-        else if(e.getSource() == checkout) {    
-            isOpeningCart = true;
+        else if(e.getSource() == checkout) {
+
+
+            
             //cartText = "<html><body>"; 
             //cartPrices = "<html><body>";
-            
+            for (int i = 0; i<cart.size(); i++){
+                
+            }
             //cartText += "TOTAL<html>";
             //cartPrices += "$" + addZeroes(cartCost) + "<html>";
 
@@ -385,8 +386,6 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     
             //cartNamesLabel.setText(cartText);
             //cartPricesLabel.setText(cartPrices);
-            
-            updateCheckout();
             
             cartButton.setVisible(false);
             cartNamesLabel.setVisible(true);
@@ -434,15 +433,12 @@ public class Display extends JFrame implements KeyListener, ActionListener {
             mainsMenu.setMenuVisibility(false);
             drinksMenu.setMenuVisibility(false);
             dessertsMenu.setMenuVisibility(false);
-        }
-        else if(e.getSource() == captchaButton){
+        
             int rand = (int) (Math.random() * (100-captchaCounter) + captchaCounter);
             if (rand < 90|| captchaCounter == 0){
                 captchaCounter += 25;
                 captcha.setLocation((int) screenWidth/2/3+((int) (Math.random() * (-80 + 180) - 180)), (int) screenHeight/2+((int) (Math.random() * (265 + 180) -180)));
                 this.update();
-            }
-            else {
                 captchaComplete.getImage().flush();
                 captchaButton.setVisible(false);
                 captcha.setIcon(captchaComplete);
@@ -462,6 +458,17 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         else if (e.getSource() == exit){
             dispose();
         }
+    }
+
+    private String addZeroes(double number) {
+        String numString = Double.toString(number);
+        if (numString.indexOf(".") == numString.length() - 2){ // If the decimal point is the second last character 
+            numString += "0";
+        } else if ((numString.length() - numString.indexOf(".") + 1) >= 4){ // Removing trailing zeroes for some reason
+            numString = numString.substring(0, numString.indexOf(".") + 3);
+            
+        }
+        return numString;
     }
 
     public final void mainMenuVisibilities(boolean visibility){
