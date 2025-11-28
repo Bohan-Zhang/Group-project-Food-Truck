@@ -51,8 +51,7 @@ public class Display extends JFrame implements KeyListener, ActionListener {
     private final JLabel captcha;
     private final JButton captchaButton;
     private final JLabel thanks;
-    private final JButton again;
-    private final JButton exit;
+    private final JButton game;
 
     //creates menu components
     private final JLabel entreesLabel;
@@ -187,19 +186,12 @@ public class Display extends JFrame implements KeyListener, ActionListener {
         thanks.setVisible(false);
         phoneLayer.add(thanks, JLayeredPane.DRAG_LAYER);
 
-        again = new JButton("Order Again");
-        again.setBounds((int) screenWidth/2/3-175, (int) screenHeight/2+200, 150, 25);
-        again.setBackground(pastelPink);
-        again.addActionListener(this);
-        again.setVisible(false);
-        phoneLayer.add(again, JLayeredPane.POPUP_LAYER);
-
-        exit = new JButton("Exit App");
-        exit.setBounds((int) screenWidth/2/3+15, (int) screenHeight/2+200, 150, 25);
-        exit.setBackground(pastelPink);
-        exit.addActionListener(this);
-        exit.setVisible(false);
-        phoneLayer.add(exit, JLayeredPane.POPUP_LAYER);
+        game = new JButton("I'm on my way!");
+        game.setBounds((int) screenWidth/2/3-150, (int) screenHeight/2+200, 300, 25);
+        game.setBackground(pastelPink);
+        game.addActionListener(this);
+        game.setVisible(false);
+        phoneLayer.add(game, JLayeredPane.POPUP_LAYER);
 
         //menu select setup
         //entrees label and button setup
@@ -406,17 +398,12 @@ public class Display extends JFrame implements KeyListener, ActionListener {
                 Timer gifTimer = new Timer(8000, (ActionEvent a) -> {
                     captcha.setVisible(false);
                     thanks.setVisible(true);
-                    again.setVisible(true);
-                    exit.setVisible(true);
+                    game.setVisible(true);
                 });
                 gifTimer.start();
             }
         }
-        else if (e.getSource() == again){
-            Main.restart();
-            dispose();
-        }
-        else if (e.getSource() == exit){
+        else if (e.getSource() == game){
             phone.setVisible(false);
             minigame = new Minigame(this);
             minigameOn = true;
